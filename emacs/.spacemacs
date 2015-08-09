@@ -24,6 +24,7 @@
      ;; markdown
      org
      ;; javascript
+     react-flow
      (shell :variables
             shell-default-shell 'eshell
             shell-default-height 30
