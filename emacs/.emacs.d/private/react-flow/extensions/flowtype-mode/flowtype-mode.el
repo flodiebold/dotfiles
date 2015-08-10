@@ -4,6 +4,7 @@
   web-mode "FlowJSX"
   "Major mode for JSX with flow types."
   (setq web-mode-content-type "jsx")
+  (setq web-mode-markup-indent-offset 2)
   (flycheck-mode 1))
 
 (add-to-list 'magic-mode-alist '("/\\* @flow" . flowtype-mode))
