@@ -50,7 +50,7 @@
 (defun flowtype//pos-to-flow-location (pos)
   "Returns a list of (line col) for pos in the current buffer."
   (let ((line (line-number-at-pos pos))
-        (col (+ 1 (column-number-at-pos pos))))
+        (col (1+ (column-number-at-pos pos))))
     (list (number-to-string line) (number-to-string col))))
 
 (defun flowtype//get-def (pos)
@@ -67,8 +67,9 @@
          (col (cdr (assq 'start loc))))
     (when (not (eq filename ""))
       (find-file filename)
-      (goto-line line)
-      (forward-char (- col 1)))))
+      (goto-char (point-min))
+      (forward-line (1- line))
+      (forward-char (1- col)))))
 
 (defun flowtype/get-def-at-point ()
   "Show the definition of the thing at point using flow."
