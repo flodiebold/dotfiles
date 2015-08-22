@@ -3,4 +3,7 @@
 (setq react-flow-post-extensions '(flowtype-mode))
 
 (defun react-flow/init-flowtype-mode ()
-  (use-package flowtype-mode))
+  (use-package flowtype-mode
+    :config
+    (progn
+      (evil-leader/set-key-for-mode 'flowtype-mode "mgg" 'flowtype/get-def-at-point))))
