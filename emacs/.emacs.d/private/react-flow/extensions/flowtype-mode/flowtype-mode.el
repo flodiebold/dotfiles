@@ -177,8 +177,9 @@
 
 (defun flowtype//leaf-p (node-type)
   "Non-nil if node-type has no children."
-  (memq node-type '(NumberTypeAnnotation StringTypeAnnotation Literal EmptyStatement DebuggerStatement
-                                         ThisExpression RegExpLiteral)))
+  (memq node-type '(NumberTypeAnnotation StringTypeAnnotation VoidTypeAnnotation BooleanTypeAnnotation
+                                         Literal EmptyStatement DebuggerStatement
+                                         ThisExpression RegExpLiteral JSXIdentifier)))
 
 (defun flowtype//visit (fun thing)
   "If thing is a vector, run fun on each element; otherwise run fun on thing."
@@ -208,7 +209,7 @@
     (`MemberExpression
      (flowtype//visit-fields '(object property) fun ast-node))
     (`FunctionExpression
-     (flowtype//visit-fields '(id params returnType body) fun ast-node))
+     (flowtype//visit-fields '(id typeParameters params returnType body) fun ast-node))
     (`ArrayExpression
      (flowtype//visit-fields '(elements) fun ast-node))
     (`ObjectExpression
@@ -250,7 +251,7 @@
     ((or `ForOfStatement `ForInStatement)
      (flowtype//visit-fields '(left right body) fun ast-node))
     (`FunctionDeclaration
-     (flowtype//visit-fields '(id params returnType body) fun ast-node))
+     (flowtype//visit-fields '(id typeParameters params returnType body) fun ast-node))
     (`VariableDeclaration
      (flowtype//visit-fields '(declarations) fun ast-node))
     (`VariableDeclarator
@@ -277,6 +278,23 @@
      (flowtype//visit-fields '(argument) fun ast-node))
     (`GenericTypeAnnotation
      (flowtype//visit-fields '(id) fun ast-node))
+    (`ArrayTypeAnnotation
+     (flowtype//visit-fields '(elementType) fun ast-node))
+    (`TypeCastExpression
+     (flowtype//visit-fields '(expression typeAnnotation) fun ast-node))
+
+    ;; JSX
+    (`JSXElement
+     (flowtype//visit-fields '(openingElement children closingElement) fun ast-node))
+    (`JSXOpeningElement
+     (flowtype//visit-fields '(name attributes) fun ast-node))
+    (`JSXClosingElement
+     (flowtype//visit-fields '(name) fun ast-node))
+    (`JSXAttribute
+     (flowtype//visit-fields '(name value) fun ast-node))
+    (`JSXExpressionContainer
+     (flowtype//visit-fields '(expression) fun ast-node))
+
     (unknown
      (message "Unknown node type: %s" unknown))))
 
