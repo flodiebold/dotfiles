@@ -122,13 +122,22 @@
   "Handler for the flow AST call."
   (message "flowtype//receive-ast called")
   (let ((ast (json-read-from-string data)))
-    (setq flowtype--ast ast)))
+    (setq flowtype--ast ast)
+    (flowtype//update-after-parse)))
 
 (defun flowtype//do-parse ()
   "Calls flow to get the AST and stores it in flowtype--ast."
   (flowtype//call-flow-on-current-buffer-async #'flowtype//receive-ast "ast"))
 
 ;; AST functions ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun flowtype//node-start (node)
+  "Returns the start position of node."
+  (1+ (elt (cdr (assq 'range node)) 0)))
+
+(defun flowtype//node-end (node)
+  "Returns the end position of node."
+  (1+ (elt (cdr (assq 'range node)) 1)))
 
 (defun flowtype//node-field (node field)
   "Returns the given field of node."
@@ -168,7 +177,8 @@
 
 (defun flowtype//leaf-p (node-type)
   "Non-nil if node-type has no children."
-  (memq node-type '(NumberTypeAnnotation StringTypeAnnotation)))
+  (memq node-type '(NumberTypeAnnotation StringTypeAnnotation Literal EmptyStatement DebuggerStatement
+                                         ThisExpression RegExpLiteral)))
 
 (defun flowtype//visit (fun thing)
   "If thing is a vector, run fun on each element; otherwise run fun on thing."
@@ -189,26 +199,84 @@
   (pcase (flowtype//node-type ast-node)
     ((pred flowtype//leaf-p)
      nil)
-    ((or `AssignmentExpression `BinaryExpression)
-     (flowtype//visit-fields '(left right) fun ast-node))
-    (`ExpressionStatement
-     (flowtype//visit-fields '(expression) fun ast-node))
-    (`MemberExpression
-     (flowtype//visit-fields '(object property) fun ast-node))
     ((pred flowtype//body-p)
      (flowtype//visit-fields '(body) fun ast-node))
+
+    ;; Expressions
+    ((or `AssignmentExpression `BinaryExpression `LogicalExpression)
+     (flowtype//visit-fields '(left right) fun ast-node))
+    (`MemberExpression
+     (flowtype//visit-fields '(object property) fun ast-node))
     (`FunctionExpression
-     (flowtype//visit-fields '(params returnType body) fun ast-node))
-    ((or `TypeAnnotation `Identifier)
-     (flowtype//visit-fields '(typeAnnotation) fun ast-node))
-    (`ReturnStatement
+     (flowtype//visit-fields '(id params returnType body) fun ast-node))
+    (`ArrayExpression
+     (flowtype//visit-fields '(elements) fun ast-node))
+    (`ObjectExpression
+     (flowtype//visit-fields '(properties) fun ast-node))
+    (`Property
+     (flowtype//visit-fields '(key value) fun ast-node))
+    (`SequenceExpression
+     (flowtype//visit-fields '(expressions) fun ast-node))
+    ((or `UpdateExpression `UnaryExpression)
      (flowtype//visit-fields '(argument) fun ast-node))
+    (`ConditionalExpression
+     (flowtype//visit-fields '(test alternate consequent) fun ast-node))
+    ((or `NewExpression `CallExpression)
+     (flowtype//visit-fields '(callee arguments) fun ast-node))
+
+    ;; Statements
+    (`ExpressionStatement
+     (flowtype//visit-fields '(expression) fun ast-node))
+    (`IfStatement
+     (flowtype//visit-fields '(test consequent alternate) fun ast-node))
+    (`LabeledStatement
+     (flowtype//visit-fields '(label body) fun ast-node))
+    ((or `ContinueStatement `BreakStatement)
+     (flowtype//visit-fields '(label) fun ast-node))
+    (`WithStatement
+     (flowtype//visit-fields '(object body) fun ast-node))
+    (`SwitchStatement
+     (flowtype//visit-fields '(discriminant cases) fun ast-node))
+    ((or `ThrowStatement `ReturnStatement)
+     (flowtype//visit-fields '(argument) fun ast-node))
+    (`TryStatement
+     (flowtype//visit-fields '(block handler finalizer) fun ast-node))
+    (`WhileStatement
+     (flowtype//visit-fields '(test body) fun ast-node))
+    (`DoWhileStatement
+     (flowtype//visit-fields '(body test) fun ast-node))
+    (`ForStatement
+     (flowtype//visit-fields '(init test update body) fun ast-node))
+    ((or `ForOfStatement `ForInStatement)
+     (flowtype//visit-fields '(left right body) fun ast-node))
+    (`FunctionDeclaration
+     (flowtype//visit-fields '(id params returnType body) fun ast-node))
+    (`VariableDeclaration
+     (flowtype//visit-fields '(declarations) fun ast-node))
+    (`VariableDeclarator
+     (flowtype//visit-fields '(id init) fun ast-node))
+
+    ;; Clauses
+    (`SwitchCase
+     (flowtype//visit-fields '(test consequent) fun ast-node))
+    (`CatchClause
+     (flowtype//visit-fields '(param body) fun ast-node))
+
+    ;; Top-level declarations
     (`ExportDeclaration
      (flowtype//visit-fields '(specifiers declaration) fun ast-node))
+
+    ;; Type annotations
+    ((or `TypeAnnotation `Identifier)
+     (flowtype//visit-fields '(typeAnnotation) fun ast-node))
     (`TypeAlias
      (flowtype//visit-fields '(id typeParameters right) fun ast-node))
     (`UnionTypeAnnotation
      (flowtype//visit-fields '(types) fun ast-node))
+    (`TypeofTypeAnnotation
+     (flowtype//visit-fields '(argument) fun ast-node))
+    (`GenericTypeAnnotation
+     (flowtype//visit-fields '(id) fun ast-node))
     (unknown
      (message "Unknown node type: %s" unknown))))
 
@@ -217,12 +285,42 @@
   (message "Node: %s" (flowtype//node-type ast-node))
   (flowtype//visit-children #'flowtype//walk-ast-print-types ast-node))
 
+
+(defun flowtype//fontify-node (ast-node face)
+  "Sets the face for a complete node."
+  (put-text-property (flowtype//node-start ast-node) (flowtype//node-end ast-node)
+                     'font-lock-face face))
+
+(defun flowtype//walk-ast-fontify (ast-node)
+  "Walks the ast, fontifying nodes."
+  (pcase (flowtype//node-type ast-node)
+    (`Literal
+     (flowtype//fontify-node ast-node font-lock-string-face))
+    (`Identifier
+     (flowtype//fontify-node ast-node font-lock-variable-name-face)
+     (flowtype//visit-children #'flowtype//walk-ast-fontify ast-node))
+    ((or `NumberTypeAnnotation `StringTypeAnnotation `GenericTypeAnnotation)
+     (flowtype//fontify-node ast-node font-lock-type-face))
+    (- (flowtype//visit-children #'flowtype//walk-ast-fontify ast-node))))
+
+(defun flowtype//fontify ()
+  "Fontifies the buffer."
+  (setq web-mode-inhibit-fontification t)
+  (remove-text-properties (point-min) (point-max) '(font-lock-face fontified face))
+  (flowtype//walk-ast-fontify flowtype--ast))
+
+
+(defun flowtype//update-after-parse ()
+  "Run after the AST is received."
+  (flowtype//fontify))
+
 (define-derived-mode flowtype-mode
   web-mode "FlowJSX"
   "Major mode for JSX with flow types."
   (setq web-mode-content-type "jsx")
   (setq web-mode-markup-indent-offset 2)
   (set (make-local-variable 'eldoc-documentation-function) #'flowtype/eldoc-show-type-at-point)
+  (setq font-lock-defaults '(nil))
   (make-local-variable 'flowtype--ast)
   (turn-on-eldoc-mode)
   (flycheck-mode 1))
