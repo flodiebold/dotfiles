@@ -42,15 +42,18 @@
 
 (defun flowtype//call-flow-on-current-buffer-async (result-handler &rest args)
   "Calls flow with args on the current buffer asynchronously; passes the result to result-handler."
+  (message "calling flow with: %s" args)
   (let* ((buf (generate-new-buffer "*flow*"))
          (process (apply #'start-process "flow" buf "flow" args)))
-    (process-send-region process (point-min) (point-max))
     (set-process-sentinel process
                           (lambda (process event)
+                            (message "process status now: %s" (process-status process))
                             (when (equal 'exit (process-status process))
                               (let ((output (with-current-buffer (process-buffer process) (buffer-string))))
                                 (kill-buffer (process-buffer process))
-                                (funcall result-handler output)))))))
+                                (funcall result-handler output)))))
+    (process-send-region process (point-min) (point-max))
+    (process-send-eof process)))
 
 (defun flowtype//json-flow-call (&rest args)
   "Calls flow on the current buffer passing --json, parses the result."
