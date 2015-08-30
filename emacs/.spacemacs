@@ -159,6 +159,7 @@ before layers configuration."
    dotspacemacs-default-package-repository nil
    )
   ;; User initialization goes here
+  (add-to-load-path "~/Projekte/structured-js-mode")
   )
 
 (defun dotspacemacs/config ()
