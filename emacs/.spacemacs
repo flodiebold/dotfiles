@@ -40,7 +40,7 @@
    ;; configuration in `dotspacemacs/config'.
    dotspacemacs-additional-packages '(scss-mode)
    ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(org-bullets)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'
@@ -160,6 +160,8 @@ before layers configuration."
    )
   ;; User initialization goes here
   (add-to-load-path "~/Projekte/structured-js-mode")
+  (setq solarized-use-variable-pitch nil)
+  (setq solarized-scale-org-headlines nil)
   )
 
 (defun dotspacemacs/config ()
@@ -168,6 +170,7 @@ before layers configuration."
 layers configuration."
   (global-company-mode)
   (setq scss-compile-at-save nil)
+  (setq org-startup-indented nil)
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
