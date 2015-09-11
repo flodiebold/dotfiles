@@ -32,7 +32,6 @@
   "Calls flow with args on the current buffer, returns the result."
   (flowtype|measure-time
    (let ((buf (generate-new-buffer "*flow*")))
-     (message "calling %s..." args)
      (unwind-protect
          (let ((result (apply 'call-process-region (point-min) (point-max) "flow" nil buf nil args))
                (output (with-current-buffer buf (buffer-string))))
@@ -42,12 +41,10 @@
 
 (defun flowtype//call-flow-on-current-buffer-async (result-handler &rest args)
   "Calls flow with args on the current buffer asynchronously; passes the result to result-handler."
-  (message "calling flow with: %s" args)
   (let* ((buf (generate-new-buffer "*flow*"))
          (process (apply #'start-process "flow" buf "flow" args)))
     (set-process-sentinel process
                           (lambda (process event)
-                            (message "process status now: %s" (process-status process))
                             (when (equal 'exit (process-status process))
                               (let ((output (with-current-buffer (process-buffer process) (buffer-string))))
                                 (kill-buffer (process-buffer process))
@@ -121,7 +118,6 @@
   (setq web-mode-content-type "jsx")
   (setq web-mode-markup-indent-offset 2)
   (set (make-local-variable 'eldoc-documentation-function) #'flowtype/eldoc-show-type-at-point)
-  (setq font-lock-defaults '(nil))
   (make-local-variable 'flowtype--ast)
   (turn-on-eldoc-mode)
   (flycheck-mode 1))
