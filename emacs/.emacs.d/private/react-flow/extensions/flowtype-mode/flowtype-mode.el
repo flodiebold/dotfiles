@@ -4,22 +4,23 @@
 
 (add-to-list 'magic-mode-alist '("/\\* @flow" . flowtype-mode))
 
-(flycheck-define-command-checker 'javascript-flowtype
-  "A JavaScript syntax and style checker using Flow."
-  :command '("flow" source-original)
-  :error-patterns
-  '((error line-start
-           (file-name)
-           ":"
-           line
-           ":"
-           (minimal-match (one-or-more not-newline))
-           ": "
-           (message (minimal-match (and (one-or-more anything) "\n")))
-           line-end))
-  :modes '(flowtype-mode))
+(with-eval-after-load 'flycheck
+  (flycheck-define-command-checker 'javascript-flowtype
+    "A JavaScript syntax and style checker using Flow."
+    :command '("flow" source-original)
+    :error-patterns
+    '((error line-start
+             (file-name)
+             ":"
+             line
+             ":"
+             (minimal-match (one-or-more not-newline))
+             ": "
+             (message (minimal-match (and (one-or-more anything) "\n")))
+             line-end))
+    :modes '(flowtype-mode))
 
-(add-to-list 'flycheck-checkers 'javascript-flowtype)
+  (add-to-list 'flycheck-checkers 'javascript-flowtype))
 
 (defmacro flowtype|measure-time (&rest body)
   "Measure the time it takes to evaluate BODY."
