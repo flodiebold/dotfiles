@@ -7,13 +7,15 @@
 (with-eval-after-load 'flycheck
   (flycheck-define-command-checker 'javascript-flowtype
     "A JavaScript syntax and style checker using Flow."
-    :command '("flow" source-original)
+    :command '("flow" "status" "--old-output-format")
     :error-patterns
     '((error line-start
              (file-name)
              ":"
              line
              ":"
+             column;(minimal-match (one-or-more not-newline))
+             ","
              (minimal-match (one-or-more not-newline))
              ": "
              (message (minimal-match (and (one-or-more anything) "\n")))
