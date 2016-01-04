@@ -35,3 +35,7 @@ plugins=(git lein mercurial screen yum zsh-syntax-highlighting pass)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
+alias ppass='PASSWORD_STORE_DIR=~/.password-store-privat pass'
+
+source /home/florian/.local/google-cloud-sdk/completion.zsh.inc
+source /home/florian/.local/google-cloud-sdk/path.zsh.inc
