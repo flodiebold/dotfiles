@@ -167,6 +167,10 @@ before layers configuration."
   (add-to-load-path "~/Projekte/structured-js-mode")
   (setq solarized-use-variable-pitch nil)
   (setq solarized-scale-org-headlines nil)
+  (add-hook 'flowtype-mode-hook
+            (lambda ()
+              (fci-mode)
+              (set-fill-column 100)))
   )
 
 (defun dotspacemacs/config ()
