@@ -4,6 +4,10 @@
 
 (add-to-list 'magic-mode-alist '("/\\* @flow" . flowtype-mode))
 
+(defun flowtype//column-number-at-pos (pos)
+  "column number at pos"
+  (save-excursion (goto-char pos) (current-column)))
+
 (with-eval-after-load 'flycheck
   (flycheck-define-command-checker 'javascript-flowtype
     "A JavaScript syntax and style checker using Flow."
@@ -71,7 +75,7 @@
 (defun flowtype//pos-to-flow-location (pos)
   "Returns a list of (line col) for pos in the current buffer."
   (let ((line (line-number-at-pos pos))
-        (col (1+ (column-number-at-pos pos))))
+        (col (1+ (flowtype//column-number-at-pos pos))))
     (list (number-to-string line) (number-to-string col))))
 
 (defun flowtype//get-def (pos)
