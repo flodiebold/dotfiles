@@ -24,8 +24,10 @@
              ": "
              (message (minimal-match (and (one-or-more anything) "\n")))
              line-end))
+    :next-checkers '((error . javascript-eslint))
     :modes '(flowtype-mode))
 
+  (flycheck-add-mode 'javascript-eslint 'flowtype-mode)
   (add-to-list 'flycheck-checkers 'javascript-flowtype))
 
 (defmacro flowtype|measure-time (&rest body)
