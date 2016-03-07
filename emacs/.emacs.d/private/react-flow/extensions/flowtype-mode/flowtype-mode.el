@@ -1,6 +1,12 @@
 ;;; flowtype-mode.el --- Derived mode for JSX with flow types -*- lexical-binding: t -*-
 
 (require 'json)
+(require 'company)          ; for autocomplete
+
+(defcustom flowtype:uncovered-type-background-color "#ff9999"
+  "background-color for undefined types."
+  :type 'string
+  :group 'flowtype)
 
 (add-to-list 'magic-mode-alist '("/\\* @flow" . flowtype-mode))
 
@@ -36,6 +42,13 @@
           (result ,@body))
      (message "%.06f" (float-time (time-since time)))
      result))
+
+(defun flowtype//call-flow-into-buffer (&rest args)
+  "Calls flow with args on the current buffer, returns the result."
+  (flowtype|measure-time
+   (let ((buf (generate-new-buffer flowtype:buffer-name)))
+     (apply 'call-process-region (point-min) (point-max) "flow" nil buf nil args)
+     buf)))
 
 (defun flowtype//call-flow-on-current-buffer (&rest args)
   "Calls flow with args on the current buffer, returns the result."
@@ -103,6 +116,13 @@
   (let ((loc (flowtype//get-def (point))))
     (flowtype//show-flow-loc loc)))
 
+(defun flowtype/suggest-into-buffer ()
+  "Calls flow suggest and then runs ediff with the result."
+  (interactive)
+  (let* ((filename (buffer-file-name))
+         (diff-buffer (flowtype//call-flow-into-buffer "suggest" filename)))
+    (ediff-patch-file 2 diff-buffer)))
+
 (defun flowtype//type-at-pos-async (result-handler pos)
   "Calls flow to get the type at pos asynchronously; passes the result to result-handler."
   (let* ((loc (flowtype//pos-to-flow-location pos))
@@ -120,6 +140,105 @@
   (interactive)
   (flowtype//type-at-pos-async #'flowtype//eldoc-show-type-info (point))
   nil)
+
+
+;; company provider
+
+(defun flowtype//fetch-completions (&rest _)
+  (interactive "P")
+  (let* ((loc (flowtype//pos-to-flow-location (point)))
+         (filename (buffer-file-name))
+         (response (flowtype//json-flow-call "autocomplete" (car loc) (cadr loc)))
+         (result (cdr (assoc 'result response)))
+         (names (mapcar (lambda (res) (cdr (assoc 'name res))) result)))
+    names))
+
+(defun company-flowtype-backend (command &optional arg &rest ignored)
+  (interactive (list 'interactive))
+
+  (case command
+    (interactive (company-begin-backend 'company-flowtype-backend))
+    (prefix (and (eq major-mode 'flowtype-mode)
+                 (company-grab-symbol)))
+    (candidates
+     (progn
+       (message "candidates %s" arg)
+       (let* ((completes (flowtype//fetch-completions))
+              (_ (message "names %s" completes))
+              (list (remove-if-not
+                    (lambda (c) (string-prefix-p arg c))
+                    completes)))
+         (message "list %s" list)
+         list)))))
+
+(add-to-list 'company-backends 'company-flowtype-backend)
+
+
+;; coverage overlays
+
+(defun flowtype//clear-cov-overlays ()
+  "Clear all flowtype overlays in current buffer."
+  (interactive)
+  (remove-overlays (point-min) (point-max) 'flowtype t))
+
+(defun flowtype//make-overlay (tuple)
+  "Make overlay for values in TUPLE."
+  (let* ((linepos (point-at-bol (car tuple))))
+    (make-overlay (- (+ linepos (nth 1 tuple)) 1) (+ linepos (nth 3 tuple)))))
+
+(defun flowtype//overlay-put (ovl color)
+  "Record actual overlay in OVL with COLOR."
+  (overlay-put ovl 'face (cons 'background-color color))
+  (overlay-put ovl 'flowtype t))
+
+(defun flowtype//overlay-current-buffer-with-list (tuple-list)
+  "Overlay current buffer acording to given TUPLE-LIST."
+  (save-excursion
+    (goto-char (point-min))
+    (flowtype//clear-cov-overlays)
+    (dolist (ovl (mapcar #'flowtype//make-overlay tuple-list))
+      (flowtype//overlay-put ovl flowtype:uncovered-type-background-color))))
+
+(defun flowtype//parse-raw-type (type)
+  "Parse raw TYPE into tuple."
+  (message "type: %s" type)
+  (list (cdr (assoc 'line type))
+        (cdr (assoc 'start type))
+        (cdr (assoc 'endline type))
+        (cdr (assoc 'end type))
+        (cdr (assoc 'type type))))
+
+(defun my-filter (condp lst)
+  (delq nil
+        (mapcar (lambda (x) (and (funcall condp x) x)) lst)))
+
+(defun flowtype//untyped? (type)
+  "True if type of TYPE is \"\" or any."
+  (let* ((typename (cdr (assoc 'type type))))
+    (message "type: %s" typename)
+    (or (string= "any" typename)
+        (string= "" typename))))
+
+(defun flowtype//parse-raw-types (types)
+  "Parse raw TYPES into tuples."
+  (let* ((untyped (my-filter #'flowtype//untyped? types))
+         (parsed (mapcar #'flowtype//parse-raw-type untyped)))
+    (message "parsed: %s" parsed)
+    parsed))
+
+(defun flowtype//fetch-coverage (filename)
+  "Fetch coverage data for FILENAME from flow."
+  (let* ((data (flowtype//json-flow-call "dump-types" filename)))
+    (flowtype//parse-raw-types data)))
+
+(defun flowtype//file-load-callback ()
+  "Initialize overlays in buffer after loading."
+  (interactive)
+  (let* ((filename (buffer-file-name))
+         (buffer-coverage-data (flowtype//fetch-coverage filename)))
+    (when buffer-coverage-data
+      (message (format "flowtype: coverage for file: %s" filename))
+      (flowtype//overlay-current-buffer-with-list buffer-coverage-data))))
 
 (define-derived-mode flowtype-mode
   web-mode "FlowJSX"
