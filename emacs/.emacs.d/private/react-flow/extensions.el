@@ -6,4 +6,4 @@
   (use-package flowtype-mode
     :config
     (progn
-      (evil-leader/set-key-for-mode 'flowtype-mode "mgg" 'flowtype/get-def-at-point))))
+      (evil-leader/set-key-for-mode 'flowtype-mode "gg" 'flowtype/get-def-at-point))))
