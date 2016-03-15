@@ -42,7 +42,7 @@
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
-   dotspacemacs-additional-packages '(scss-mode yaml-mode)
+   dotspacemacs-additional-packages '(scss-mode yaml-mode magit-gerrit)
    ;; TODO: enable smartparens in scss-mode; put into layer
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(org-bullets)
@@ -164,7 +164,7 @@ before layers configuration."
   (setq solarized-scale-org-headlines nil)
   (add-hook 'flowtype-mode-hook
             (lambda ()
-              (fci-mode)
+              ;;(fci-mode) ;; TODO: breaks rendering
               (set-fill-column 100)))
   )
 
