@@ -14,28 +14,6 @@
   "column number at pos"
   (save-excursion (goto-char pos) (current-column)))
 
-(with-eval-after-load 'flycheck
-  (flycheck-define-command-checker 'javascript-flowtype
-    "A JavaScript syntax and style checker using Flow."
-    :command '("flow" "status" "--old-output-format")
-    :error-patterns
-    '((error line-start
-             (file-name)
-             ":"
-             line
-             ":"
-             column;(minimal-match (one-or-more not-newline))
-             ","
-             (minimal-match (one-or-more not-newline))
-             ": "
-             (message (minimal-match (and (one-or-more anything) "\n")))
-             line-end))
-    :next-checkers '((error . javascript-eslint))
-    :modes '(flowtype-mode))
-
-  (flycheck-add-mode 'javascript-eslint 'flowtype-mode)
-  (add-to-list 'flycheck-checkers 'javascript-flowtype))
-
 (defmacro flowtype|measure-time (&rest body)
   "Measure the time it takes to evaluate BODY."
   `(let* ((time (current-time))
@@ -53,10 +31,10 @@
 (defun flowtype//call-flow-on-current-buffer (&rest args)
   "Calls flow with args on the current buffer, returns the result."
   (flowtype|measure-time
-   (let ((buf (generate-new-buffer "*flow*")))
+   (let* ((buf (generate-new-buffer "*flow*")))
      (unwind-protect
-         (let ((result (apply 'call-process-region (point-min) (point-max) "flow" nil buf nil args))
-               (output (with-current-buffer buf (buffer-string))))
+         (let* ((result (apply 'call-process-region (point-min) (point-max) "flow" nil buf nil args))
+                (output (with-current-buffer buf (buffer-string))))
            (when (= result 0)
              output))
        (kill-buffer buf)))))
@@ -71,8 +49,10 @@
                               (let ((output (with-current-buffer (process-buffer process) (buffer-string))))
                                 (kill-buffer (process-buffer process))
                                 (funcall result-handler output)))))
-    (process-send-region process (point-min) (point-max))
-    (process-send-eof process)))
+    (when (process-live-p process)
+      (with-demoted-errors "flowtype: error calling flow: %s"
+        (process-send-region process (point-min) (point-max))
+        (process-send-eof process)))))
 
 (defun flowtype//json-flow-call (&rest args)
   "Calls flow on the current buffer passing --json, parses the result."
@@ -133,7 +113,7 @@
   "Shows the passed type info using eldoc."
   (let ((type (cdr (assq 'type data))))
     (when (not (equal "(unknown)" type))
-      (eldoc-message (cdr (assq 'type data))))))
+      (eldoc-message type))))
 
 (defun flowtype/eldoc-show-type-at-point ()
   "Shows type at point."
@@ -172,6 +152,44 @@
          list)))))
 
 (add-to-list 'company-backends 'company-flowtype-backend)
+
+;; flycheck
+
+(defun flowtype//fc-convert-part (error-part checker counter)
+  (message "part %s" error-part)
+  (let* ((desc (cdr (assoc 'descr error-part)))
+         (line (cdr (assoc 'line error-part)))
+         (col  (cdr (assoc 'start error-part))))
+    (flycheck-error-new-at line col 'error desc :checker checker :id counter)))
+
+(defun flowtype//fc-convert-error (error checker counter)
+  "Return a list of errors from ERROR."
+  (let* ((msg-parts (cdr (assoc 'message error))))
+    (mapcar (lambda (part)
+              (flowtype//fc-convert-part part checker counter))
+            msg-parts)))
+
+(defun flowtype//parse-status-errors (output checker buffer)
+  "Parse flow status errors in OUTPUT."
+  (let* ((json (json-read-from-string output))
+         (errors (cdr (assoc 'errors json)))
+         (counter 0)
+         (converted-errs (mapcar (lambda (err)
+                                   (setq counter (1+ counter))
+                                   (flowtype//fc-convert-error err checker (number-to-string counter)))
+                                 errors))
+         (errs (apply #'append converted-errs)))
+    ;; (message "done: %s" errs)
+    errs))
+
+(with-eval-after-load 'flycheck
+  (flycheck-define-command-checker 'javascript-flowtype
+    "A JavaScript syntax and style checker using Flow."
+    :command '("flow" "status" "--json")
+    :error-parser #'flowtype//parse-status-errors
+    :modes '(flowtype-mode))
+
+  (add-to-list 'flycheck-checkers 'javascript-flowtype))
 
 
 ;; coverage overlays
