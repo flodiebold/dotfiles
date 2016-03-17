@@ -2,6 +2,7 @@
 
 (require 'json)
 (require 'company)          ; for autocomplete
+(require 'dash)
 
 (defcustom flowtype:uncovered-type-background-color "#ff9999"
   "background-color for undefined types."
@@ -155,31 +156,29 @@
 
 ;; flycheck
 
-(defun flowtype//fc-convert-part (error-part checker counter)
-  (message "part %s" error-part)
-  (let* ((desc (cdr (assoc 'descr error-part)))
-         (line (cdr (assoc 'line error-part)))
-         (col  (cdr (assoc 'start error-part))))
-    (flycheck-error-new-at line col 'error desc :checker checker :id counter)))
-
 (defun flowtype//fc-convert-error (error checker counter)
   "Return a list of errors from ERROR."
-  (let* ((msg-parts (cdr (assoc 'message error))))
-    (mapcar (lambda (part)
-              (flowtype//fc-convert-part part checker counter))
-            msg-parts)))
+  (let* ((msg-parts (cdr (assoc 'message error)))
+         (first-part (elt msg-parts 0))
+         (level (if (eq (cdr (assoc 'level first-part)) "warning") 'warning 'error))
+         (file (cdr (assoc 'path first-part)))
+         (line (cdr (assoc 'line first-part)))
+         (col  (cdr (assoc 'start first-part)))
+         (desc (--reduce (format "%s\n%s" acc it) (--map (cdr (assoc 'descr it)) msg-parts))))
+    (if (string= file (buffer-file-name))
+        (list (flycheck-error-new-at line col level desc :checker checker :id counter))
+      '())))
 
 (defun flowtype//parse-status-errors (output checker buffer)
   "Parse flow status errors in OUTPUT."
   (let* ((json (json-read-from-string output))
          (errors (cdr (assoc 'errors json)))
          (counter 0)
-         (converted-errs (mapcar (lambda (err)
-                                   (setq counter (1+ counter))
-                                   (flowtype//fc-convert-error err checker (number-to-string counter)))
-                                 errors))
-         (errs (apply #'append converted-errs)))
-    ;; (message "done: %s" errs)
+         (errs (-mapcat
+                (lambda (err)
+                  (setq counter (1+ counter))
+                  (flowtype//fc-convert-error err checker (number-to-string counter)))
+                errors)))
     errs))
 
 (with-eval-after-load 'flycheck
@@ -187,8 +186,10 @@
     "A JavaScript syntax and style checker using Flow."
     :command '("flow" "status" "--json")
     :error-parser #'flowtype//parse-status-errors
+    :next-checkers '((error . javascript-eslint))
     :modes '(flowtype-mode))
 
+  (flycheck-add-mode 'javascript-eslint 'flowtype-mode)
   (add-to-list 'flycheck-checkers 'javascript-flowtype))
 
 

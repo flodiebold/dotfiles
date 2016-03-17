@@ -4,6 +4,7 @@
                             json
                             web-mode
                             flycheck
+                            dash
                             ))
 
 (defun react-flow/init-web-mode ()
