@@ -40,6 +40,8 @@
     (define-key evil-normal-state-map "H" 'evil-yank-line)
 
     (define-key evil-visual-state-map "h" 'evil-yank)
+    (define-key evil-visual-state-map "o" nil)
+    (define-key evil-visual-state-map "l" 'exchange-point-and-mark)
     ))
 
 (defun workman/pre-init-evil-org ()
