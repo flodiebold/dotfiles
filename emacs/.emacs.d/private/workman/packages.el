@@ -38,6 +38,8 @@
     (define-key evil-normal-state-map "J" 'evil-search-previous)
     (define-key evil-normal-state-map "h" 'evil-yank)
     (define-key evil-normal-state-map "H" 'evil-yank-line)
+
+    (define-key evil-visual-state-map "h" 'evil-yank)
     ))
 
 (defun workman/pre-init-evil-org ()
