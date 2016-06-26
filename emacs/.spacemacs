@@ -29,7 +29,6 @@
             shell-default-shell 'eshell
             shell-default-height 30
             shell-default-position 'full)
-     restclient
      (syntax-checking :variables
                       syntax-checking-enable-tooltips nil)
      react-flow
@@ -38,6 +37,7 @@
      rust
      clojure
      restclient
+     workman
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -83,8 +83,8 @@ before layers configuration."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
-                               :size 18
+   dotspacemacs-default-font '("Fantasque Sans Mono"
+                               :size 22
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
