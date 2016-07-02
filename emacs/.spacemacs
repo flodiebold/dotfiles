@@ -39,7 +39,7 @@
      restclient
      workman
      gerrit
-     )
+     evil-cleverparens)
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
@@ -88,7 +88,7 @@ before layers configuration."
                                :size 22
                                :weight normal
                                :width normal
-                               :powerline-scale 1.1)
+                               :powerline-scale 1.0)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The leader key accessible in `emacs state' and `insert state'
@@ -153,13 +153,17 @@ before layers configuration."
    ;; If non nil advises quit functions to keep server open when quitting.
    dotspacemacs-persistent-server nil
    ;; List of search tool executable names. Spacemacs uses the first installed
+
+
+
+
+
    ;; tool of the list. Supported tools are `ag', `pt', `ack' and `grep'.
    dotspacemacs-search-tools '("ag" "pt" "ack" "grep")
    ;; The default package repository used if no explicit repository has been
    ;; specified with an installed package.
    ;; Not used for now.
-   dotspacemacs-default-package-repository nil
-   )
+   dotspacemacs-default-package-repository nil)
   ;; User initialization goes here
   (add-to-load-path "~/Projekte/structured-js-mode")
   (setq solarized-use-variable-pitch nil)
@@ -167,17 +171,18 @@ before layers configuration."
   (add-hook 'flowtype-mode-hook
             (lambda ()
               ;;(fci-mode) ;; TODO: breaks rendering
-              (set-fill-column 100)))
-  )
+              (set-fill-column 100))))
 
-(defun dotspacemacs/config ()
+(defun dotspacemacs/user-config ()
   "Configuration function.
  This function is called at the very end of Spacemacs initialization after
 layers configuration."
   (global-company-mode)
   (setq scss-compile-at-save nil)
   (setq org-startup-indented nil)
-)
+  (spacemacs/toggle-evil-cleverparens-on)
+  (add-hook 'emacs-lisp-mode-hook #'evil-cleverparens-mode)
+  (add-hook 'clojure-mode-hook #'evil-cleverparens-mode))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.

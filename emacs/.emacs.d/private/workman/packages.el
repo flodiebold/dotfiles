@@ -3,11 +3,11 @@
 ;; see also: https://github.com/fmdkdd/dotfiles/blob/master/spacemacs/.emacs.d/private/colemak-hjkl/packages.el
 
 (setq workman-packages
-      '(
-        evil
+      '(evil
         evil-org
-        magit
-        ))
+        evil-lisp-state
+        evil-cleverparens
+        magit))
 
 (defun workman/pre-init-evil ()
   (spacemacs|use-package-add-hook evil
@@ -17,12 +17,13 @@
     (define-key evil-normal-state-map "o" nil)
     (define-key evil-normal-state-map "n" nil)
     (define-key evil-normal-state-map "e" nil)
+    (define-key evil-normal-state-map "Y" nil)
+    (define-key evil-normal-state-map "O" nil)
 
     (define-key evil-motion-state-map "y" 'evil-backward-char)
     (define-key evil-motion-state-map "o" 'evil-forward-char)
     (define-key evil-motion-state-map "n" 'evil-next-line)
     (define-key evil-motion-state-map "e" 'evil-previous-line)
-
 
     (define-key evil-motion-state-map "gn" 'evil-next-visual-line)
     (define-key evil-motion-state-map "ge" 'evil-previous-visual-line)
@@ -33,7 +34,7 @@
     (define-key evil-motion-state-map "N" 'evil-join)
 
     (define-key evil-normal-state-map "l" 'evil-open-below)
-    (define-key evil-normal-state-map "L" 'evil-open-below)
+    (define-key evil-normal-state-map "L" 'evil-open-above)
     (define-key evil-normal-state-map "j" 'evil-search-next)
     (define-key evil-normal-state-map "J" 'evil-search-previous)
     (define-key evil-normal-state-map "h" 'evil-yank)
@@ -41,8 +42,7 @@
 
     (define-key evil-visual-state-map "h" 'evil-yank)
     (define-key evil-visual-state-map "o" nil)
-    (define-key evil-visual-state-map "l" 'exchange-point-and-mark)
-    ))
+    (define-key evil-visual-state-map "l" 'exchange-point-and-mark)))
 
 (defun workman/pre-init-evil-org ()
   (spacemacs|use-package-add-hook org
@@ -72,8 +72,7 @@
       (kbd "M-Y") 'org-shiftmetaleft
       (kbd "M-E") 'org-shiftmetaup
       (kbd "M-O") 'org-shiftmetaright
-      (kbd "M-N") 'org-shiftmetadown)
-    ))
+      (kbd "M-N") 'org-shiftmetadown)))
 
 (defun workman/pre-init-magit ()
   (spacemacs|use-package-add-hook magit
@@ -92,3 +91,53 @@
       "n" nil
       "e" nil
       "o" nil)))
+
+(defun workman/sp-transpose-backwards (&optional arg)
+  ""
+  (interactive "p")
+  (sp-transpose-sexp (- arg)))
+
+(defun workman/pre-init-evil-lisp-state ()
+  (spacemacs|use-package-add-hook evil-lisp-state
+    :post-config
+    (define-key evil-lisp-state-map "y" 'sp-backward-symbol)
+    (define-key evil-lisp-state-map "Y" 'sp-backward-sexp)
+    (define-key evil-lisp-state-map "o" 'sp-forward-symbol)
+    (define-key evil-lisp-state-map "O" 'sp-forward-sexp)
+
+    (define-key evil-lisp-state-map "n" 'lisp-state-next-closing-paren)
+    (define-key evil-lisp-state-map "e" 'lisp-state-prev-opening-paren)
+
+    (define-key evil-lisp-state-map "h" 'sp-copy-sexp)
+
+    (define-key evil-lisp-state-map "l" 'sp-splice-sexp-killing-forward)
+    (define-key evil-lisp-state-map "L" 'sp-splice-sexp-killing-backward)
+
+    (define-key evil-lisp-state-map "T" 'workman/sp-transpose-backwards)))
+
+(defun workman/pre-init-evil-cleverparens ()
+  (spacemacs|use-package-add-hook evil-cleverparens
+    :post-init
+    (evil-define-key 'normal evil-cleverparens-mode-map "y" nil)
+    (evil-define-key 'normal evil-cleverparens-mode-map "n" nil)
+    (evil-define-key 'normal evil-cleverparens-mode-map "e" nil)
+    (evil-define-key 'normal evil-cleverparens-mode-map "o" nil)
+    (evil-define-key 'normal evil-cleverparens-mode-map "Y" nil)
+    (evil-define-key 'normal evil-cleverparens-mode-map "N" nil)
+    (evil-define-key 'normal evil-cleverparens-mode-map "E" nil)
+    (evil-define-key 'normal evil-cleverparens-mode-map "O" nil)
+    (evil-define-key 'normal evil-cleverparens-mode-map "l" nil)
+    (evil-define-key 'normal evil-cleverparens-mode-map "L" nil)
+    (evil-define-key 'normal evil-cleverparens-mode-map (kbd "M-o") nil)
+    (evil-define-key 'normal evil-cleverparens-mode-map (kbd "M-O") nil)
+
+    (define-key evil-motion-state-map "Y" 'evil-cp-backward-symbol-begin)
+    (define-key evil-motion-state-map "O" 'evil-cp-forward-symbol-end)
+
+    (evil-define-key 'normal evil-cleverparens-mode-map (kbd "M-n") 'evil-cp-drag-forward)
+    (evil-define-key 'normal evil-cleverparens-mode-map (kbd "M-e") 'evil-cp-drag-backward)
+
+    (evil-define-key 'normal evil-cleverparens-mode-map "h" 'evil-cp-yank)
+    (evil-define-key 'normal evil-cleverparens-mode-map "H" 'evil-cp-yank-line)
+    (evil-define-key 'normal evil-cleverparens-mode-map (kbd "M-l") 'evil-cp-open-below-form)
+    (evil-define-key 'normal evil-cleverparens-mode-map (kbd "M-L") 'evil-cp-open-above-form)))
