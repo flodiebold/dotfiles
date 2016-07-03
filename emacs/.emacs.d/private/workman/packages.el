@@ -42,6 +42,7 @@
 
     (define-key evil-visual-state-map "h" 'evil-yank)
     (define-key evil-visual-state-map "o" nil)
+    (define-key evil-visual-state-map "O" nil)
     (define-key evil-visual-state-map "l" 'exchange-point-and-mark)))
 
 (defun workman/pre-init-evil-org ()
@@ -118,18 +119,22 @@
 (defun workman/pre-init-evil-cleverparens ()
   (spacemacs|use-package-add-hook evil-cleverparens
     :post-init
-    (evil-define-key 'normal evil-cleverparens-mode-map "y" nil)
-    (evil-define-key 'normal evil-cleverparens-mode-map "n" nil)
-    (evil-define-key 'normal evil-cleverparens-mode-map "e" nil)
-    (evil-define-key 'normal evil-cleverparens-mode-map "o" nil)
-    (evil-define-key 'normal evil-cleverparens-mode-map "Y" nil)
-    (evil-define-key 'normal evil-cleverparens-mode-map "N" nil)
-    (evil-define-key 'normal evil-cleverparens-mode-map "E" nil)
-    (evil-define-key 'normal evil-cleverparens-mode-map "O" nil)
-    (evil-define-key 'normal evil-cleverparens-mode-map "l" nil)
-    (evil-define-key 'normal evil-cleverparens-mode-map "L" nil)
-    (evil-define-key 'normal evil-cleverparens-mode-map (kbd "M-o") nil)
-    (evil-define-key 'normal evil-cleverparens-mode-map (kbd "M-O") nil)
+    (evil-define-key 'normal evil-cleverparens-mode-map
+      "y" nil
+      "n" nil
+      "e" nil
+      "o" nil
+      "Y" nil
+      "N" nil
+      "E" nil
+      "O" nil
+      "l" nil
+      "L" nil
+      (kbd "M-o") nil
+      (kbd "M-O") nil)
+
+    (evil-define-key 'visual evil-cleverparens-mode-map
+      "Y" nil)
 
     (define-key evil-motion-state-map "Y" 'evil-cp-backward-symbol-begin)
     (define-key evil-motion-state-map "O" 'evil-cp-forward-symbol-end)
