@@ -47,8 +47,9 @@
 
 (defun workman/pre-init-evil-org ()
   (spacemacs|use-package-add-hook org
-    :post-config
+    :post-init
     (evil-define-key 'normal evil-org-mode-map
+      "O" nil
       "o" nil)
 
     (evil-define-key 'normal evil-org-mode-map

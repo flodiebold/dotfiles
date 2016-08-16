@@ -40,4 +40,4 @@ alias ppass='PASSWORD_STORE_DIR=~/.password-store-privat pass'
 source /home/florian/.local/google-cloud-sdk/completion.zsh.inc
 source /home/florian/.local/google-cloud-sdk/path.zsh.inc
 
-export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$HOME/.go/bin:$PATH"
