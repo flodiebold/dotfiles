@@ -170,6 +170,7 @@ before layers configuration."
   (add-to-load-path "~/Projekte/structured-js-mode")
   (setq solarized-use-variable-pitch nil)
   (setq solarized-scale-org-headlines nil)
+  (setq frame-title-format "emacs: %b")
   (add-hook 'flowtype-mode-hook
             (lambda ()
               ;;(fci-mode) ;; TODO: breaks rendering
