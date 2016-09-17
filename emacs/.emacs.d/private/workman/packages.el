@@ -46,14 +46,14 @@
     (define-key evil-visual-state-map "l" 'exchange-point-and-mark)))
 
 (defun workman/pre-init-evil-org ()
-  (spacemacs|use-package-add-hook org
-    :post-init
+  (spacemacs|use-package-add-hook evil-org
+    :post-config
     (evil-define-key 'normal evil-org-mode-map
       "O" nil
       "o" nil)
 
     (evil-define-key 'normal evil-org-mode-map
-      "gn" 'outline-down-heading
+      ;; "gn" 'outline-down-heading
       "ge" 'outline-up-heading
       "go" 'org-forward-heading-same-level
       "gy" 'org-backward-heading-same-level
