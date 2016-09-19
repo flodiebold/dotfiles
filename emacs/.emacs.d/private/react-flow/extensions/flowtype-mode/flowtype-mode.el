@@ -190,7 +190,8 @@
     :modes '(flowtype-mode))
 
   (flycheck-add-mode 'javascript-eslint 'flowtype-mode)
-  (add-to-list 'flycheck-checkers 'javascript-flowtype))
+  ;; (add-to-list 'flycheck-checkers 'javascript-flowtype) ;;; TODO: fix it
+  )
 
 
 ;; coverage overlays
