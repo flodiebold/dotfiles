@@ -9,41 +9,38 @@
         evil-cleverparens
         magit))
 
-(defun workman/pre-init-evil ()
-  (spacemacs|use-package-add-hook evil
-    :post-config
+(defun workman/post-init-evil ()
+  (define-key evil-normal-state-map "y" nil)
+  (define-key evil-normal-state-map "o" nil)
+  (define-key evil-normal-state-map "n" nil)
+  (define-key evil-normal-state-map "e" nil)
+  (define-key evil-normal-state-map "Y" nil)
+  (define-key evil-normal-state-map "O" nil)
 
-    (define-key evil-normal-state-map "y" nil)
-    (define-key evil-normal-state-map "o" nil)
-    (define-key evil-normal-state-map "n" nil)
-    (define-key evil-normal-state-map "e" nil)
-    (define-key evil-normal-state-map "Y" nil)
-    (define-key evil-normal-state-map "O" nil)
+  (define-key evil-motion-state-map "y" 'evil-backward-char)
+  (define-key evil-motion-state-map "o" 'evil-forward-char)
+  (define-key evil-motion-state-map "n" 'evil-next-line)
+  (define-key evil-motion-state-map "e" 'evil-previous-line)
 
-    (define-key evil-motion-state-map "y" 'evil-backward-char)
-    (define-key evil-motion-state-map "o" 'evil-forward-char)
-    (define-key evil-motion-state-map "n" 'evil-next-line)
-    (define-key evil-motion-state-map "e" 'evil-previous-line)
+  (define-key evil-motion-state-map "gn" 'evil-next-visual-line)
+  (define-key evil-motion-state-map "ge" 'evil-previous-visual-line)
+  (define-key evil-motion-state-map "gk" nil)
+  (define-key evil-motion-state-map "gj" nil)
 
-    (define-key evil-motion-state-map "gn" 'evil-next-visual-line)
-    (define-key evil-motion-state-map "ge" 'evil-previous-visual-line)
-    (define-key evil-motion-state-map "gk" nil)
-    (define-key evil-motion-state-map "gj" nil)
+  (define-key evil-motion-state-map "E" 'evil-window-top)
+  (define-key evil-motion-state-map "N" 'evil-join)
 
-    (define-key evil-motion-state-map "E" 'evil-window-top)
-    (define-key evil-motion-state-map "N" 'evil-join)
+  (define-key evil-normal-state-map "l" 'evil-open-below)
+  (define-key evil-normal-state-map "L" 'evil-open-above)
+  (define-key evil-normal-state-map "j" 'evil-search-next)
+  (define-key evil-normal-state-map "J" 'evil-search-previous)
+  (define-key evil-normal-state-map "h" 'evil-yank)
+  (define-key evil-normal-state-map "H" 'evil-yank-line)
 
-    (define-key evil-normal-state-map "l" 'evil-open-below)
-    (define-key evil-normal-state-map "L" 'evil-open-above)
-    (define-key evil-normal-state-map "j" 'evil-search-next)
-    (define-key evil-normal-state-map "J" 'evil-search-previous)
-    (define-key evil-normal-state-map "h" 'evil-yank)
-    (define-key evil-normal-state-map "H" 'evil-yank-line)
-
-    (define-key evil-visual-state-map "h" 'evil-yank)
-    (define-key evil-visual-state-map "o" nil)
-    (define-key evil-visual-state-map "O" nil)
-    (define-key evil-visual-state-map "l" 'exchange-point-and-mark)))
+  (define-key evil-visual-state-map "h" 'evil-yank)
+  (define-key evil-visual-state-map "o" nil)
+  (define-key evil-visual-state-map "O" nil)
+  (define-key evil-visual-state-map "l" 'exchange-point-and-mark))
 
 (defun workman/pre-init-evil-org ()
   (spacemacs|use-package-add-hook evil-org
@@ -135,6 +132,7 @@
       (kbd "M-O") nil)
 
     (evil-define-key 'visual evil-cleverparens-mode-map
+      "y" nil
       "Y" nil)
 
     (define-key evil-motion-state-map "Y" 'evil-cp-backward-symbol-begin)
