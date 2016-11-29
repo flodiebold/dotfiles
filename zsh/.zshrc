@@ -37,7 +37,13 @@ source $ZSH/oh-my-zsh.sh
 # Customize to your needs...
 alias ppass='PASSWORD_STORE_DIR=~/.password-store-privat pass'
 
-source /home/florian/.local/google-cloud-sdk/completion.zsh.inc
-source /home/florian/.local/google-cloud-sdk/path.zsh.inc
+if [ -f ~/.local/google-cloud-sdk/completion.zsh.inc ]; then
+    source ~/.local/google-cloud-sdk/completion.zsh.inc
+    source ~/.local/google-cloud-sdk/path.zsh.inc
+fi
 
 export PATH="$HOME/.cargo/bin:$HOME/.go/bin:$PATH"
+
+if [ -f /home/florian/Projekte/betty/tools/betty-env.sh ]; then
+    source ~/Projekte/betty/tools/betty-env.sh
+fi
