@@ -49,7 +49,8 @@
                             (when (equal 'exit (process-status process))
                               (let ((output (with-current-buffer (process-buffer process) (buffer-string))))
                                 (kill-buffer (process-buffer process))
-                                (funcall result-handler output)))))
+                                (with-demoted-errors "flowtype: error in flow result handler: %s"
+                                  (funcall result-handler output))))))
     (when (process-live-p process)
       (with-demoted-errors "flowtype: error calling flow: %s"
         (process-send-region process (point-min) (point-max))
