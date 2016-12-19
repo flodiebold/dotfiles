@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# Runs eslint from node_modules in the current folder (or further up the tree)
+DIR="."
+
+while [ ! -d "${DIR}/node_modules" -a "$(cd "$DIR"; pwd)" != / ]; do
+    DIR="$DIR/.."
+done
+
+if [ -x "${DIR}/node_modules/eslint/bin/eslint.js" ]; then
+    exec "${DIR}/node_modules/eslint/bin/eslint.js" "$@"
+else
+    echo No ESLint found! >&2
+    exit 1
+fi
