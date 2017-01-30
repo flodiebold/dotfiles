@@ -153,7 +153,7 @@
          (message "list %s" list)
          list)))))
 
-(add-to-list 'company-backends 'company-flowtype-backend)
+;; (add-to-list 'company-backends 'company-flowtype-backend)
 
 ;; flycheck
 
@@ -180,7 +180,9 @@
                   (setq counter (1+ counter))
                   (flowtype//fc-convert-error err checker (number-to-string counter)))
                 errors)))
-    errs))
+    (if errs
+        errs
+      (list (flycheck-error-new-at 0 0 'warning "Errors in other files exist" :checker checker :id "0")))))
 
 (with-eval-after-load 'flycheck
   (flycheck-define-command-checker 'javascript-flowtype
@@ -191,7 +193,7 @@
     :modes '(flowtype-mode))
 
   (flycheck-add-mode 'javascript-eslint 'flowtype-mode)
-  ;; (add-to-list 'flycheck-checkers 'javascript-flowtype) ;;; TODO: fix it
+  (add-to-list 'flycheck-checkers 'javascript-flowtype)
   )
 
 
