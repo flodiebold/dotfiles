@@ -191,6 +191,7 @@ layers configuration."
   (setq org-startup-indented nil)
   (spacemacs/toggle-evil-cleverparens-on)
   (setq avy-keys (list ?a ?s ?h ?t ?n ?e ?o ?i)) ;; TODO: move this into workman layer
+  (setq neo-theme 'ascii)
   (add-hook 'emacs-lisp-mode-hook #'evil-cleverparens-mode)
   (add-hook 'clojure-mode-hook #'evil-cleverparens-mode))
 
