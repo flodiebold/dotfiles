@@ -1,12 +1,7 @@
 ;;; packages.el --- React-flow layer packages file for spacemacs
 
-(setq react-flow-packages '(
-                            json
-                            web-mode
-                            flycheck
-                            dash
-                            (flowtype-mode :location local)
-                            ))
+(setq react-flow-packages '(web-mode
+                            (flowtype-mode :location local)))
 
 (defun react-flow/init-web-mode ()
   (use-package web-mode))
