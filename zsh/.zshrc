@@ -42,7 +42,7 @@ if [ -f ~/.local/google-cloud-sdk/completion.zsh.inc ]; then
     source ~/.local/google-cloud-sdk/path.zsh.inc
 fi
 
-export PATH="$HOME/.cargo/bin:$HOME/.go/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$HOME/.go/bin:$HOME/.local/bin:$PATH"
 
 if [ -f /home/florian/Projekte/betty/tools/betty-env.sh ]; then
     source ~/Projekte/betty/tools/betty-env.sh
