@@ -89,7 +89,13 @@
       "y" nil
       "n" nil
       "e" nil
-      "o" nil)))
+      "o" nil)
+    (evil-define-key 'visual magit-mode-map
+      "y" nil
+      "n" nil
+      "e" nil
+      "o" nil)
+    (define-key magit-blame-mode-map "n" nil)))
 
 (defun workman/sp-transpose-backwards (&optional arg)
   ""
