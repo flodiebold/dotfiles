@@ -46,6 +46,6 @@ fi
 
 export PATH="$HOME/.cargo/bin:$HOME/.go/bin:$HOME/.local/bin:$PATH"
 
-if [ -f /home/florian/Projekte/betty/tools/betty-env.sh ]; then
-    source ~/Projekte/betty/tools/betty-env.sh
+if [ -f $HOME/.env-local ]; then
+    source $HOME/.env-local
 fi
