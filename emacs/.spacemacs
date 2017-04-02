@@ -50,12 +50,13 @@
      shell-scripts
      shaders
      docker
+     erc
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
-   dotspacemacs-additional-packages '(scss-mode yaml-mode magit-gerrit groovy-mode glsl-mode)
+   dotspacemacs-additional-packages '(scss-mode yaml-mode magit-gerrit groovy-mode glsl-mode auth-password-store)
    ;; TODO: enable smartparens in scss-mode; put into layer
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(org-bullets)
@@ -95,8 +96,8 @@ before layers configuration."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("Fantasque Sans Mono"
-                               :size 22
+   dotspacemacs-default-font '("Input"
+                               :size 30
                                :weight normal
                                :width normal
                                :powerline-scale 1.0)
@@ -113,7 +114,7 @@ before layers configuration."
    ;; Emacs commands (M-x).
    ;; By default the command key is `:' so ex-commands are executed like in Vim
    ;; with `:' and Emacs commands are executed with `<leader> :'.
-   dotspacemacs-command-key ":"
+   dotspacemacs-command-key "SPC"
    ;; Location where to auto-save files. Possible values are `original' to
    ;; auto-save the file in-place, `cache' to auto-save the file to another
    ;; file stored in the cache directory and `nil' to disable auto-saving.
@@ -210,7 +211,12 @@ layers configuration."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (mmm-mode markdown-toc markdown-mode gh-md yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode company-anaconda anaconda-mode pythonic web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor js2-mode js-doc company-tern dash-functional tern coffee-mode fish-mode company-shell undo-tree s uuidgen org-projectile org-download ob-http link-hint git-link eyebrowse evil-visual-mark-mode evil-unimpaired evil-ediff eshell-z dumb-jump column-enforce-mode clojure-snippets cargo request f auto-complete git-gutter alert git-commit hydra rust-mode projectile avy cider clojure-mode multiple-cursors anzu iedit smartparens flycheck yasnippet company helm helm-core magit magit-popup with-editor package-build evil groovy-mode go-eldoc company-go go-mode glsl-mode yaml-mode xterm-color ws-butler window-numbering which-key web-mode volatile-highlights vi-tilde-fringe use-package toml-mode toc-org spacemacs-theme spaceline solarized-theme smooth-scrolling smeargle shell-pop scss-mode restclient restart-emacs rainbow-delimiters racer quelpa popwin persp-mode pcre2el paradox page-break-lines orgit org-repo-todo org-present org-pomodoro org-plus-contrib open-junk-file neotree multi-term move-text magit-gitflow magit-gerrit macrostep lorem-ipsum linum-relative leuven-theme ledger-mode info+ indent-guide ido-vertical-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe git-gutter-fringe+ flycheck-rust flycheck-pos-tip flycheck-ledger flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-cleverparens evil-args evil-anzu eshell-prompt-extras esh-help elisp-slime-nav diff-hl define-word company-statistics company-racer company-quickhelp clj-refactor clean-aindent-mode cider-eval-sexp-fu buffer-move bracketed-paste auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
+    (pug-mode hide-comnt packed highlight async haml-mode auth-password-store password-store erc-yt erc-view-log erc-social-graph erc-image erc-hl-nicks dockerfile-mode docker tablist docker-tramp dash csv-mode mmm-mode markdown-toc markdown-mode gh-md yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode company-anaconda anaconda-mode pythonic web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor js2-mode js-doc company-tern dash-functional tern coffee-mode fish-mode company-shell undo-tree s uuidgen org-projectile org-download ob-http link-hint git-link eyebrowse evil-visual-mark-mode evil-unimpaired evil-ediff eshell-z dumb-jump column-enforce-mode clojure-snippets cargo request f auto-complete git-gutter alert git-commit hydra rust-mode projectile avy cider clojure-mode multiple-cursors anzu iedit smartparens flycheck yasnippet company helm helm-core magit magit-popup with-editor package-build evil groovy-mode go-eldoc company-go go-mode glsl-mode yaml-mode xterm-color ws-butler window-numbering which-key web-mode volatile-highlights vi-tilde-fringe use-package toml-mode toc-org spacemacs-theme spaceline solarized-theme smooth-scrolling smeargle shell-pop scss-mode restclient restart-emacs rainbow-delimiters racer quelpa popwin persp-mode pcre2el paradox page-break-lines orgit org-repo-todo org-present org-pomodoro org-plus-contrib open-junk-file neotree multi-term move-text magit-gitflow magit-gerrit macrostep lorem-ipsum linum-relative leuven-theme ledger-mode info+ indent-guide ido-vertical-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe git-gutter-fringe+ flycheck-rust flycheck-pos-tip flycheck-ledger flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-cleverparens evil-args evil-anzu eshell-prompt-extras esh-help elisp-slime-nav diff-hl define-word company-statistics company-racer company-quickhelp clj-refactor clean-aindent-mode cider-eval-sexp-fu buffer-move bracketed-paste auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell)))
+ '(safe-local-variable-values
+   (quote
+    ((projectile-project-run-cmd . "CARGO_INCREMENTAL=1 cargo run")
+     (projectile-project-test-cmd . "CARGO_INCREMENTAL=1 cargo test")
+     (projectile-project-compilation-cmd . "CARGO_INCREMENTAL=1 cargo build")))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
