@@ -177,7 +177,7 @@ before layers configuration."
    ;; Not used for now.
    dotspacemacs-default-package-repository nil)
   ;; User initialization goes here
-  (add-to-load-path "~/Projekte/structured-js-mode")
+  ;; (add-to-load-path "~/Projekte/structured-js-mode")
   (setq solarized-use-variable-pitch nil)
   (setq solarized-scale-org-headlines nil)
   (setq frame-title-format "emacs: %b")
@@ -199,6 +199,7 @@ layers configuration."
   (setq neo-theme 'ascii)
   (setq prettier-args '("--tab-width" "4" "--jsx-bracket-same-line"))
   (setq prettier-width-mode 'fill)
+  (bind-key "C-j" 'newline-and-indent)
   (add-hook 'emacs-lisp-mode-hook #'evil-cleverparens-mode)
   (add-hook 'clojure-mode-hook #'evil-cleverparens-mode))
 
