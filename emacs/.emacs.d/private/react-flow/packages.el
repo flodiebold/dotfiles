@@ -4,7 +4,25 @@
   '((jsx-flow-mode :location
                    (recipe
                     :fetcher github
-                    :repo "flodiebold/jsx-flow-mode"))))
+                    :repo "flodiebold/jsx-flow-mode"))
+    (prettier-js :location local)))
+
+(defvar-local react-flow--prettier-enabled t)
+
+(defun react-flow/toggle-prettier-on-save ()
+  (interactive)
+  (setq react-flow--prettier-enabled (not react-flow--prettier-enabled)))
+
+(defun react-flow/init-prettier-js ()
+  (use-package prettier-js
+    :config
+    (progn
+      (add-hook 'jsx-flow-mode-hook
+                (lambda ()
+                  (add-hook 'before-save-hook
+                            (lambda ()
+                              (when react-flow--prettier-enabled
+                                (prettier))) nil t))))))
 
 (defun react-flow/init-jsx-flow-mode ()
   (use-package jsx-flow-mode

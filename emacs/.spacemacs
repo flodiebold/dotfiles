@@ -37,7 +37,6 @@
      (syntax-checking :variables
                       syntax-checking-enable-tooltips nil)
      react-flow
-     prettier
      version-control
      finance
      rust
@@ -199,6 +198,8 @@ layers configuration."
   (setq neo-theme 'ascii)
   (setq prettier-args '("--tab-width" "4" "--jsx-bracket-same-line"))
   (setq prettier-width-mode 'fill)
+  (add-hook 'jsx-flow-mode-hook
+            (lambda () (setq-local fill-column 120)))
   (bind-key "C-j" 'newline-and-indent)
   (add-hook 'emacs-lisp-mode-hook #'evil-cleverparens-mode)
   (add-hook 'clojure-mode-hook #'evil-cleverparens-mode))
