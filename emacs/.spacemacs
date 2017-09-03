@@ -31,6 +31,8 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     lua
+     asciidoc
      csv
      html
      markdown
@@ -270,7 +272,41 @@ layers configuration."
             (lambda () (setq-local fill-column 120)))
   (bind-key "C-j" 'newline-and-indent)
   (add-hook 'emacs-lisp-mode-hook #'evil-cleverparens-mode)
-  (add-hook 'clojure-mode-hook #'evil-cleverparens-mode))
+  (add-hook 'clojure-mode-hook #'evil-cleverparens-mode)
+  (evil-declare-ignore-repeat 'recenter-top-bottom)
+  (auth-pass-enable)
+  (setq erc-server-list
+        '(("irc.freenode.net"
+           :port "6697"
+           :ssl t
+           :nick "edlothiol")
+          ("irc.mozilla.org"
+           :port "6697"
+           :ssl t
+           :nick "fdiebold")))
+  (setq erc-autojoin-channels-alist
+        '(("irc.freenode.net" "##crawl" "##crawl-dev")
+          ("irc.mozilla.org" "#rust" "#rust-beginners" "#rust-internals")))
+  ;; (erc-autojoin-enable)
+  )
+
+(defun set-small-font ()
+  (interactive)
+  (set-frame-font (font-spec :name "Input"
+                             :size 23
+                             :weight 'normal
+                             :width 'normal
+                             :powerline-scale 1.0)
+                  nil t))
+
+(defun set-big-font ()
+  (interactive)
+  (set-frame-font (font-spec :name "Input"
+                             :size 30
+                             :weight 'normal
+                             :width 'normal
+                             :powerline-scale 1.0)
+                  nil t))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
