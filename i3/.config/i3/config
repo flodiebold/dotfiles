@@ -11,6 +11,8 @@
 
 set $mod Mod4
 
+exec --no-startup-id xss-lock -- i3lock -n
+
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 font pango:monospace 8
@@ -78,7 +80,7 @@ bindsym $mod+f fullscreen toggle
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
 bindsym $mod+d layout tabbed
-bindsym $mod+r layout toggle split
+bindsym $mod+x layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -155,8 +157,11 @@ bindsym $mod+w mode "resize"
 bindsym Print exec --no-startup-id scrot -e 'mv $f ~/Bilder'
 bindsym --release Shift+Print exec --no-startup-id scrot --select -e 'mv $f ~/Bilder'
 
+# lock screen
+bindsym $mod+l exec --no-startup-id xset dpms force off
+
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status
+        status_command i3blocks -c ~/.config/i3blocks/i3blocks.conf
 }
