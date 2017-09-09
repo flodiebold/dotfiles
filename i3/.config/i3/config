@@ -153,6 +153,28 @@ bindsym $mod+w mode "resize"
 
 # custom stuff
 
+mode "monitors" {
+    bindsym y move workspace to output left
+    bindsym o move workspace to output right
+
+    # switch to workspace
+    bindsym $mod+1 workspace 1
+    bindsym $mod+2 workspace 2
+    bindsym $mod+3 workspace 3
+    bindsym $mod+4 workspace 4
+    bindsym $mod+5 workspace 5
+    bindsym $mod+6 workspace 6
+    bindsym $mod+7 workspace 7
+    bindsym $mod+8 workspace 8
+    bindsym $mod+9 workspace 9
+    bindsym $mod+0 workspace 10
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+b mode "monitors"
+
 # screenshot
 bindsym Print exec --no-startup-id scrot -e 'mv $f ~/Bilder'
 bindsym --release Shift+Print exec --no-startup-id scrot --select -e 'mv $f ~/Bilder'
