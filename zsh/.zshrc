@@ -49,3 +49,5 @@ export PATH="$HOME/.cargo/bin:$HOME/.go/bin:$HOME/.local/bin:$PATH"
 if [ -f $HOME/.env-local ]; then
     source $HOME/.env-local
 fi
+
+GPG_TTY=$(tty) ; export GPG_TTY
