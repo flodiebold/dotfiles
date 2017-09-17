@@ -44,10 +44,16 @@ if [ -f ~/.local/google-cloud-sdk/completion.zsh.inc ]; then
     source ~/.local/google-cloud-sdk/path.zsh.inc
 fi
 
-export PATH="$HOME/.cargo/bin:$HOME/.go/bin:$HOME/.local/bin:$PATH"
-
 if [ -f $HOME/.env-local ]; then
     source $HOME/.env-local
 fi
 
 GPG_TTY=$(tty) ; export GPG_TTY
+
+if which fd > /dev/null; then
+    alias find=fd
+fi
+
+if which exa > /dev/null; then
+    alias ls=exa
+fi
