@@ -50,10 +50,10 @@ fi
 
 GPG_TTY=$(tty) ; export GPG_TTY
 
-if which fd > /dev/null; then
+if which fd > /dev/null 2> /dev/null; then
     alias find=fd
 fi
 
-if which exa > /dev/null; then
+if which exa > /dev/null 2> /dev/null; then
     alias ls=exa
 fi
