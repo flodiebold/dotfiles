@@ -61,7 +61,8 @@ values."
      react-flow
      version-control
      finance
-     rust
+     ;; rust
+     rust-rls
      clojure
      restclient
      workman

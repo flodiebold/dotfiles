@@ -22,6 +22,8 @@
     toml-mode
     lsp-mode
     lsp-rust
+    ;; (lsp-mode :location "/home/florian/Projekte/lsp-mode")
+    ;; (lsp-rust :location "/home/florian/Projekte/lsp-rust")
     ))
 
 (defun rust-rls/init-cargo ()
@@ -57,7 +59,10 @@
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'rust-mode
         "=" 'rust-format-buffer
-        "q" 'spacemacs/rust-quick-run))))
+        "q" 'spacemacs/rust-quick-run)
+      ;; (evil-define-key 'insert rust-mode-map
+      ;;   (kbd ".") 'rustrls/completing-dot)
+      )))
 
 (defun rust-rls/init-toml-mode ()
   (use-package toml-mode
