@@ -16,15 +16,44 @@
     ;; racer
     flycheck
     ;; (lsp-flycheck :toggle (configuration-layer/package-usedp 'flycheck))
-    ;; ggtags
-    ;; helm-gtags
+    (company-lsp :requires company)
+    (helm-xref :requires helm)
     rust-mode
     toml-mode
     lsp-mode
+    lsp-ui
     lsp-rust
     ;; (lsp-mode :location "/home/florian/Projekte/lsp-mode")
     ;; (lsp-rust :location "/home/florian/Projekte/lsp-rust")
     ))
+
+(defun rust-rls/init-company-lsp ()
+  (use-package company-lsp
+    :defer t
+    :init
+    ;; Language servers have better idea filtering and sorting,
+    ;; don't filter results on the client side.
+    (setq company-transformers nil
+          company-lsp-async t
+          company-lsp-cache-candidates nil)
+    ;; (spacemacs|add-company-backends :backends company-lsp :modes c-mode-common)
+    ;; (spacemacs|add-company-backends :backends company-lsp :modes rust-mode)
+    ))
+
+(defun rust-rls/init-helm-xref ()
+  (use-package helm-xref
+    :defer t
+    :init
+    (progn
+      ;; This is required to make xref-find-references not give a prompt.
+      ;; xref-find-references asks the identifier (which has no text property) and then passes it to lsp-mode, which requires the text property at point to locate the references.
+      ;; https://debbugs.gnu.org/cgi/bugreport.cgi?bug=29619
+      (setq xref-prompt-for-identifier
+            '(not xref-find-definitions xref-find-definitions-other-window xref-find-definitions-other-frame xref-find-references spacemacs/jump-to-definition))
+
+      ;; Use helm-xref to display xref.el results.
+      (setq xref-show-xrefs-function #'helm-xref-show-xrefs)
+      )))
 
 (defun rust-rls/init-cargo ()
   (use-package cargo
@@ -60,6 +89,7 @@
       (spacemacs/set-leader-keys-for-major-mode 'rust-mode
         "=" 'rust-format-buffer
         "q" 'spacemacs/rust-quick-run)
+      (add-hook 'rust-mode-hook #'lsp-rust-enable)
       ;; (evil-define-key 'insert rust-mode-map
       ;;   (kbd ".") 'rustrls/completing-dot)
       )))
@@ -68,12 +98,13 @@
   (use-package toml-mode
     :mode "/\\(Cargo.lock\\|\\.cargo/config\\)\\'"))
 
-;; (defun rust-rls/post-init-company ()
-;;   (push 'company-capf company-backends-rust-mode)
-;;   (spacemacs|add-company-hook rust-mode)
-;;   (add-hook 'rust-mode-hook
-;;             (lambda ()
-;;               (setq-local company-tooltip-align-annotations t))))
+(defun rust-rls/post-init-company ()
+  (push 'company-lsp company-backends-rust-mode)
+  (spacemacs|add-company-hook rust-mode)
+  ;; (add-hook 'rust-mode-hook
+  ;;           (lambda ()
+  ;;             (setq-local company-tooltip-align-annotations t)))
+  )
 
 (defun rust-rls/post-init-smartparens ()
   (with-eval-after-load 'smartparens
@@ -107,9 +138,22 @@
     :init
     (add-hook 'rust-mode-hook 'lsp-mode)
     :config
-    (use-package lsp-flycheck
-      :ensure f ; comes with lsp-mode
-      :after flycheck)))
+    (progn
+      (add-hook 'lsp-mode-hook #'lsp-ui-mode)
+
+      ;; Disable lsp-flycheck.el in favor of lsp-ui-flycheck.el
+      (setq lsp-enable-flycheck nil)
+
+      (spacemacs|diminish lsp-mode " Ⓛ" " L")
+      )))
+
+(defun rust-rls/init-lsp-ui ()
+  (use-package lsp-ui
+    :config
+    (progn
+      ;; (lsp//sync-peek-face)
+      ;; (add-hook 'spacemacs-post-theme-change-hook #'lsp//sync-peek-face)
+      )))
 
 (defun rust-rls/init-lsp-rust ()
   (use-package lsp-rust
