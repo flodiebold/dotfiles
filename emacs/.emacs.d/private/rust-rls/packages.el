@@ -12,7 +12,7 @@
 (setq rust-rls-packages
   '(
     cargo
-    ;; company
+    company
     ;; racer
     flycheck
     ;; (lsp-flycheck :toggle (configuration-layer/package-usedp 'flycheck))
