@@ -49,6 +49,8 @@ if [ -f $HOME/.env-local ]; then
 fi
 
 GPG_TTY=$(tty) ; export GPG_TTY
+GPG_AGENT_INFO=/run/user/1000/gnupg/S.gpg-agent:$(pidof gpg-agent):1
+export GPG_AGENT_INFO
 
 if which fd > /dev/null 2> /dev/null; then
     alias find=fd
@@ -56,4 +58,5 @@ fi
 
 if which exa > /dev/null 2> /dev/null; then
     alias ls=exa
+    alias tree="exa --tree"
 fi
