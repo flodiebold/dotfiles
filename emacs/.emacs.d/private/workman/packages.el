@@ -95,7 +95,8 @@
       "n" nil
       "e" nil
       "o" nil)
-    (define-key magit-blame-mode-map "n" nil)))
+    (define-key magit-blame-read-only-mode-map "n" nil)
+    ))
 
 (defun workman/sp-transpose-backwards (&optional arg)
   ""
