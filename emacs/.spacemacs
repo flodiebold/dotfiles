@@ -288,6 +288,7 @@ layers configuration."
   (setq erc-autojoin-channels-alist
         '(("irc.freenode.net" "##crawl" "##crawl-dev")
           ("irc.mozilla.org" "#rust" "#rust-beginners" "#rust-internals")))
+  ;; (erc-autojoin-enable)
   (setq org-agenda-files '("~/org/todo"))
   (setq org-refile-targets '((org-agenda-files :maxlevel . 2)))
   (setq browse-url-browser-function 'browse-url-chrome)
@@ -298,7 +299,11 @@ layers configuration."
            )
           ("r" "Jira" entry (file+headline "~/org/todo/refinement.org" "Stories in refinement")
            "* TODO %:description\n[[%:link][JIRA]]")))
-  ;; (erc-autojoin-enable)
+  (spaceline-define-segment lsp-status
+    "Spaceline segment showing LSP status."
+    (when (bound-and-true-p lsp-mode) (or lsp-status "LSP")))
+  (setq spacemacs-spaceline-additional-segments '(lsp-status))
+  (setq lsp-rust-rls-command '("env" "RUST_BACKTRACE=full" "rls" "+nightly"))
   )
 
 (defun set-small-font ()
