@@ -27,6 +27,9 @@
     ;; (lsp-rust :location "/home/florian/Projekte/lsp-rust")
     ))
 
+;; TODO: get code actions to work?
+;; TODO: format via rls
+
 (defun rust-rls/init-company-lsp ()
   (use-package company-lsp
     :defer t
@@ -61,6 +64,7 @@
     :init
     (progn
       (spacemacs/declare-prefix-for-mode 'rust-mode "mc" "cargo")
+      (spacemacs/declare-prefix-for-mode 'rust-mode "mt" "cargo test")
       (spacemacs/set-leader-keys-for-major-mode 'rust-mode
         "c." 'cargo-process-repeat
         "cC" 'cargo-process-clean
@@ -68,15 +72,15 @@
         "cc" 'cargo-process-build
         "cd" 'cargo-process-doc
         "ce" 'cargo-process-bench
-        "cf" 'cargo-process-current-test
         "cf" 'cargo-process-fmt
         "ci" 'cargo-process-init
         "cn" 'cargo-process-new
-        "co" 'cargo-process-current-file-tests
         "cs" 'cargo-process-search
         "cu" 'cargo-process-update
         "cx" 'cargo-process-run
-        "t" 'cargo-process-test))))
+        "ta" 'cargo-process-test
+        "tf" 'cargo-process-current-file-tests
+        "tt" 'cargo-process-current-test))))
 
 (defun rust-rls/post-init-flycheck ()
   (spacemacs/add-flycheck-hook 'rust-mode))
