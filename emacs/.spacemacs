@@ -69,6 +69,7 @@ values."
      gerrit
      evil-cleverparens
      go
+     scala
      shell-scripts
      shaders
      docker
