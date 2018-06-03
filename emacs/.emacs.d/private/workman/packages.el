@@ -7,7 +7,9 @@
         evil-org
         evil-lisp-state
         evil-cleverparens
-        magit))
+        cargo-process
+        magit
+        ranger))
 
 (defun workman/post-init-evil ()
   (define-key evil-normal-state-map "y" nil)
@@ -40,7 +42,13 @@
   (define-key evil-visual-state-map "h" 'evil-yank)
   (define-key evil-visual-state-map "o" nil)
   (define-key evil-visual-state-map "O" nil)
-  (define-key evil-visual-state-map "l" 'exchange-point-and-mark))
+  (define-key evil-visual-state-map "l" 'exchange-point-and-mark)
+
+  ;; (define-key compilation-mode-map "n" nil)
+  )
+
+(defun workman/post-init-cargo-process ()
+  (define-key cargo-process-mode-map "n" nil))
 
 (defun workman/pre-init-evil-org ()
   (spacemacs|use-package-add-hook evil-org
@@ -152,3 +160,13 @@
     (evil-define-key 'normal evil-cleverparens-mode-map "H" 'evil-cp-yank-line)
     (evil-define-key 'normal evil-cleverparens-mode-map (kbd "M-l") 'evil-cp-open-below-form)
     (evil-define-key 'normal evil-cleverparens-mode-map (kbd "M-L") 'evil-cp-open-above-form)))
+
+(defun workman/pre-init-ranger ()
+  (spacemacs|use-package-add-hook ranger
+    :post-config
+    (define-key ranger-mode-map "n" 'ranger-next-file)
+    (define-key ranger-mode-map "e" 'ranger-prev-file)
+    (define-key ranger-mode-map "o" 'ranger-find-file)
+    (define-key ranger-mode-map "y" 'ranger-up-directory)
+    (define-key ranger-mode-map "h" nil)
+    (define-key ranger-mode-map "hh" 'ranger-copy)))
