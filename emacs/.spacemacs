@@ -276,6 +276,7 @@ layers configuration."
   (add-hook 'emacs-lisp-mode-hook #'evil-cleverparens-mode)
   (add-hook 'clojure-mode-hook #'evil-cleverparens-mode)
   (evil-declare-ignore-repeat 'recenter-top-bottom)
+  (evil-declare-ignore-repeat 'move-beginning-of-line)
   (auth-pass-enable)
   (setq erc-server-list
         '(("irc.freenode.net"
