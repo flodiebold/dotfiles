@@ -148,7 +148,7 @@
       ;; Disable lsp-flycheck.el in favor of lsp-ui-flycheck.el
       (setq lsp-enable-flycheck nil)
 
-      (spacemacs|diminish lsp-mode " Ⓛ" " L")
+      ;; (spacemacs|diminish lsp-mode " Ⓛ" " L")
       )))
 
 (defun rust-rls/init-lsp-ui ()
