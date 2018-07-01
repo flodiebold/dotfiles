@@ -11,6 +11,7 @@
 
 set $mod Mod4
 
+exec --no-startup-id xsetroot -solid "#002b36"
 exec --no-startup-id xss-lock -- i3lock -n --color=000000
 exec --no-startup-id redshift
 
@@ -187,4 +188,52 @@ bindsym --release $mod+l exec --no-startup-id xset dpms force off
 # finds out, if available)
 bar {
         status_command i3blocks -c ~/.config/i3blocks/i3blocks.conf
+
+        colors {
+           background #002b36
+           statusline #FF00FF
+           separator #839496
+           #                  border  backgr. text
+           focused_workspace  #073642 #b58900 #002b36
+           active_workspace   #073642 #073642 #839496
+           inactive_workspace #073642 #073642 #839496
+           urgent_workspace   #073642 #5f676a #fdf6e3
+        }
 }
+
+# base03    #002b36
+# base02    #073642
+# base01    #586e75
+# base00    #657b83
+# base0     #839496
+# base1     #93a1a1
+# base2     #eee8d5
+# base3     #fdf6e3
+# yellow    #b58900
+# orange    #cb4b16
+# red       #dc322f
+# magenta   #d33682
+# violet    #6c71c4
+# blue      #268bd2
+# cyan      #2aa198
+# green     #859900
+
+# client.focused          #002b36 #fdf6e3 #657b83 #268bd2 #002b36
+# client.focused          #002b36 #586e75 #fdf6e3 #268bd2
+# client.focused          #002b36 #073642 #839496 #073642 
+# client.focused_inactive #002b36 #002b36 #839496 #073642
+# client.unfocused        #002b36 #002b36 #839496 #073642
+# client.urgent           #002b36 #dc322f #fdf6e3 #002b36
+
+# class                 border  bground text    indicator child_border
+client.focused          #073642 #b58900 #002b36 #073642   #073642
+client.focused_inactive #073642 #002b36 #93a1a1 #073642   #073642
+client.unfocused        #073642 #002b36 #839496 #073642   #073642
+client.urgent           #073642 #dc322f #fdf6e3 #002b36   #073642
+
+
+# client.focused          #fdf6e3 #fdf6e3 #657b83 #268bd2
+# client.focused_inactive #fdf6e3 #fdf6e3 #657b83 #073642
+# client.unfocused        #fdf6e3 #fdf6e3 #657b83 #073642
+# client.urgent           #dc322f #fdf6e3 #dc322f #002b36
+
