@@ -75,6 +75,7 @@ values."
      shaders
      docker
      erc
+     ranger
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -305,8 +306,9 @@ layers configuration."
   (spaceline-define-segment lsp-status
     "Spaceline segment showing LSP status."
     (when (bound-and-true-p lsp-mode) (or lsp-status "LSP")))
-  (setq spacemacs-spaceline-additional-segments '(lsp-status))
   (setq lsp-rust-rls-command '("env" "RUST_BACKTRACE=full" "rls" "+nightly"))
+  (setq ranger-cleanup-on-disable t)
+
   )
 
 (defun set-small-font ()
