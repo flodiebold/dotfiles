@@ -81,7 +81,18 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
-   dotspacemacs-additional-packages '(scss-mode yaml-mode magit-gerrit groovy-mode glsl-mode auth-password-store kotlin-mode jsonnet-mode)
+   dotspacemacs-additional-packages '(scss-mode
+                                      yaml-mode
+                                      (magit-gerrit :location "~/Projekte/opensource/magit-gerrit")
+                                      groovy-mode
+                                      glsl-mode
+                                      auth-password-store
+                                      kotlin-mode
+                                      jsonnet-mode
+                                      (lsp-rust :location "~/Projekte/opensource/lsp-rust")
+                                      (lsp-ui :location "~/Projekte/opensource/lsp-ui")
+                                      (lsp-mode :location "~/Projekte/opensource/lsp-mode")
+                                      )
    ;; TODO: enable smartparens in scss-mode; put into layer
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(org-bullets)
