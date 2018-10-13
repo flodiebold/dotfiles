@@ -16,12 +16,12 @@
     ;; racer
     flycheck
     ;; (lsp-flycheck :toggle (configuration-layer/package-usedp 'flycheck))
-    (company-lsp :requires company)
+    ;; (company-lsp :requires company)
     (helm-xref :requires helm)
     rust-mode
     toml-mode
-    lsp-mode
-    lsp-ui
+    ;; lsp-mode
+    ;; lsp-ui
     lsp-rust
     ;; (lsp-mode :location "/home/florian/Projekte/lsp-mode")
     ;; (lsp-rust :location "/home/florian/Projekte/lsp-rust")
@@ -30,18 +30,18 @@
 ;; TODO: get code actions to work?
 ;; TODO: format via rls
 
-(defun rust-rls/init-company-lsp ()
-  (use-package company-lsp
-    :defer t
-    :init
-    ;; Language servers have better idea filtering and sorting,
-    ;; don't filter results on the client side.
-    (setq company-transformers nil
-          company-lsp-async t
-          company-lsp-cache-candidates nil)
-    ;; (spacemacs|add-company-backends :backends company-lsp :modes c-mode-common)
-    ;; (spacemacs|add-company-backends :backends company-lsp :modes rust-mode)
-    ))
+;; (defun rust-rls/init-company-lsp ()
+;;   (use-package company-lsp
+;;     :defer t
+;;     :init
+;;     ;; Language servers have better idea filtering and sorting,
+;;     ;; don't filter results on the client side.
+;;     (setq company-transformers nil
+;;           company-lsp-async t
+;;           company-lsp-cache-candidates nil)
+;;     ;; (spacemacs|add-company-backends :backends company-lsp :modes c-mode-common)
+;;     ;; (spacemacs|add-company-backends :backends company-lsp :modes rust-mode)
+;;     ))
 
 (defun rust-rls/init-helm-xref ()
   (use-package helm-xref
@@ -91,10 +91,11 @@
     :defer t
     :init
     (progn
-      (spacemacs/set-leader-keys-for-major-mode 'rust-mode
-        "=" 'rust-format-buffer
-        "q" 'spacemacs/rust-quick-run)
       (add-hook 'rust-mode-hook #'lsp-rust-enable)
+      (spacemacs/lsp-bind-keys-for-mode 'jsx-flow-mode)
+      (spacemacs/set-leader-keys-for-major-mode 'rust-mode
+        "=b" 'rust-format-buffer
+        "q" 'spacemacs/rust-quick-run)
       ;; (evil-define-key 'insert rust-mode-map
       ;;   (kbd ".") 'rustrls/completing-dot)
       )))
@@ -138,27 +139,27 @@
 
 ;; TODO: use xref-find-definitions directly in spacemacs-jump-handlers
 
-(defun rust-rls/init-lsp-mode ()
-  (use-package lsp-mode
-    :init
-    (add-hook 'rust-mode-hook 'lsp-mode)
-    :config
-    (progn
-      (add-hook 'lsp-mode-hook #'lsp-ui-mode)
+;; (defun rust-rls/post-init-lsp-mode ()
+;;   (use-package lsp-mode
+;;     :init
+;;     (add-hook 'rust-mode-hook 'lsp-mode)
+;;     :config
+;;     (progn
+;;       (add-hook 'lsp-mode-hook #'lsp-ui-mode)
 
-      ;; Disable lsp-flycheck.el in favor of lsp-ui-flycheck.el
-      (setq lsp-enable-flycheck nil)
+;;       ;; Disable lsp-flycheck.el in favor of lsp-ui-flycheck.el
+;;       (setq lsp-enable-flycheck nil)
 
-      ;; (spacemacs|diminish lsp-mode " Ⓛ" " L")
-      )))
+;;       ;; (spacemacs|diminish lsp-mode " Ⓛ" " L")
+;;       )))
 
-(defun rust-rls/init-lsp-ui ()
-  (use-package lsp-ui
-    :config
-    (progn
-      ;; (lsp//sync-peek-face)
-      ;; (add-hook 'spacemacs-post-theme-change-hook #'lsp//sync-peek-face)
-      )))
+;; (defun rust-rls/init-lsp-ui ()
+;;   (use-package lsp-ui
+;;     :config
+;;     (progn
+;;       ;; (lsp//sync-peek-face)
+;;       ;; (add-hook 'spacemacs-post-theme-change-hook #'lsp//sync-peek-face)
+;;       )))
 
 (defun rust-rls/init-lsp-rust ()
   (use-package lsp-rust

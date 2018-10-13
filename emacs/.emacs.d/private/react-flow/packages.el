@@ -4,7 +4,9 @@
   '((jsx-flow-mode :location
                    (recipe
                     :fetcher github
+                    :branch "lsp"
                     :repo "flodiebold/jsx-flow-mode"))
+    company
     (prettier-js :location local)))
 
 (defvar-local react-flow--prettier-enabled t)
@@ -30,4 +32,14 @@
     (progn
       (add-to-list 'auto-mode-alist '("\\.js\\'" . jsx-flow-mode))
       (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-flow-mode))
-      (evil-leader/set-key-for-mode 'jsx-flow-mode "gg" 'jsx-flow/get-def-at-point))))
+      ;; (evil-leader/set-key-for-mode 'jsx-flow-mode "gg" 'jsx-flow/get-def-at-point)
+      (spacemacs/lsp-bind-keys-for-mode 'jsx-flow-mode)
+      )))
+
+(defun rust-rls/post-init-company ()
+  (push 'company-lsp company-backends-jsx-flow-mode)
+  (spacemacs|add-company-hook jsx-flow-mode)
+  ;; (add-hook 'jsx-flow-mode-hook
+  ;;           (lambda ()
+  ;;             (setq-local company-tooltip-align-annotations t)))
+  )
