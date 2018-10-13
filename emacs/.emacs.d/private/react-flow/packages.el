@@ -36,7 +36,7 @@
       (spacemacs/lsp-bind-keys-for-mode 'jsx-flow-mode)
       )))
 
-(defun rust-rls/post-init-company ()
+(defun react-flow/post-init-company ()
   (push 'company-lsp company-backends-jsx-flow-mode)
   (spacemacs|add-company-hook jsx-flow-mode)
   ;; (add-hook 'jsx-flow-mode-hook
