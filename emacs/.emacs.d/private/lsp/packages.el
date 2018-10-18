@@ -36,11 +36,7 @@
   (use-package company-lsp
     :defer t
     :init
-    ;; Language servers have better idea filtering and sorting,
-    ;; don't filter results on the client side.
-    (setq company-transformers nil
-      company-lsp-async t
-      company-lsp-cache-candidates nil)))
+    (setq company-lsp-async t)))
 
 (defun lsp/init-flycheck-lsp ()
   ;; Disable lsp-flycheck.el in favor of lsp-ui-flycheck.el
