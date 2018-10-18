@@ -38,8 +38,9 @@
 
 (defun react-flow/post-init-company ()
   (push 'company-lsp company-backends-jsx-flow-mode)
+  (push 'company-jsx-flow-import-backend company-backends-jsx-flow-mode)
   (spacemacs|add-company-hook jsx-flow-mode)
-  ;; (add-hook 'jsx-flow-mode-hook
-  ;;           (lambda ()
-  ;;             (setq-local company-tooltip-align-annotations t)))
+  (add-hook 'jsx-flow-mode-hook
+            (lambda ()
+              (setq-local company-tooltip-align-annotations t)))
   )
