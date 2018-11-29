@@ -91,7 +91,7 @@
     :defer t
     :init
     (progn
-      (add-hook 'rust-mode-hook #'lsp-rust-enable)
+      (add-hook 'rust-mode-hook #'lsp)
       (spacemacs/lsp-bind-keys-for-mode 'jsx-flow-mode)
       (spacemacs/set-leader-keys-for-major-mode 'rust-mode
         "=b" 'rust-format-buffer
