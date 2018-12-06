@@ -91,9 +91,11 @@ values."
                                       kotlin-mode
                                       jsonnet-mode
                                       markdown-mode
+                                      ht
                                       (lsp-rust :location "~/Projekte/opensource/lsp-rust")
                                       (lsp-ui :location "~/Projekte/opensource/lsp-ui")
                                       (lsp-mode :location "~/Projekte/opensource/lsp-mode")
+                                      (company-lsp :location "~/Projekte/opensource/company-lsp")
                                       (jsx-flow-mode :location "~/Projekte/privat/jsx-flow-mode")
                                       )
    ;; TODO: enable smartparens in scss-mode; put into layer
@@ -321,7 +323,7 @@ layers configuration."
     "Spaceline segment showing LSP status."
     (when (bound-and-true-p lsp-mode) (or lsp-status "LSP")))
   (setq lsp-rust-rls-command '("env" "RUST_BACKTRACE=full" "rls" "+nightly"))
-  (setq lsp-rust-rust-analyzer-command '("/home/florian/Projekte/opensource/libsyntax2/target/debug/ra_lsp_server"))
+  (setq lsp-rust-rust-analyzer-command '("/home/florian/Projekte/opensource/rust-analyzer/target/debug/ra_lsp_server"))
   (setq ranger-cleanup-on-disable t)
   (add-hook 'before-save-hook (lambda () (when (eq 'typescript-mode major-mode)
                                            (prettier))))
