@@ -149,7 +149,7 @@ function."
              (t
               (error "invalid rcs patch or internal error in prettier--apply-rcs-patch")))))))))
 
-(defun prettier--process-errors (filename tmpfile errorfile errbuf)
+(defun prettier--process-errors (filename errorfile errbuf)
   (with-current-buffer errbuf
     (if (eq prettier-show-errors 'echo)
         (progn
@@ -159,8 +159,6 @@ function."
       ;; Convert the prettier stderr to something understood by the compilation mode.
       (goto-char (point-min))
       (insert "prettier errors:\n")
-      (while (search-forward-regexp (regexp-quote tmpfile) nil t)
-        (replace-match (file-name-nondirectory filename)))
       (compilation-mode)
       (display-buffer errbuf))))
 
@@ -176,7 +174,6 @@ function."
    "Format the current buffer according to the prettier tool."
    (interactive)
    (let* ((ext (file-name-extension buffer-file-name t))
-          (bufferfile (make-temp-file "prettier" nil ext))
           (outputfile (make-temp-file "prettier" nil ext))
           (errorfile (make-temp-file "prettier" nil ext))
           (errbuf (if prettier-show-errors (get-buffer-create "*prettier errors*")))
@@ -194,29 +191,26 @@ function."
      (unwind-protect
          (save-restriction
            (widen)
-           (write-region nil nil bufferfile)
            (if errbuf
                (with-current-buffer errbuf
                  (setq buffer-read-only nil)
                  (erase-buffer)))
            (with-current-buffer patchbuf
              (erase-buffer))
-           (if (zerop (apply 'call-process
-                             prettier-command nil (list (list :file outputfile) errorfile)
-                             nil (append (append prettier-args width-args) (list bufferfile))))
+           (if (zerop (apply 'call-process-region
+                             nil nil prettier-command nil `((:file ,outputfile) ,errorfile)
+                             nil (append prettier-args width-args (list "--stdin" "--stdin-filepath" (buffer-file-name)))))
                (progn
-                 (call-process-region (point-min) (point-max) "diff" nil patchbuf nil "-n" "-"
+                 (call-process-region nil nil "diff" nil patchbuf nil "-n" "-"
                                       outputfile)
                  (prettier--apply-rcs-patch patchbuf)
                  (message "Applied prettier with args `%s'" prettier-args)
                  (if errbuf (prettier--kill-error-buffer errbuf)))
              (message "Could not apply prettier")
              (if errbuf
-                 (prettier--process-errors (buffer-file-name) bufferfile errorfile errbuf))
-             )))
+                 (prettier--process-errors (buffer-file-name) errorfile errbuf)))))
      (kill-buffer patchbuf)
      (delete-file errorfile)
-     (delete-file bufferfile)
      (delete-file outputfile)))
 
 (provide 'prettier-js)
