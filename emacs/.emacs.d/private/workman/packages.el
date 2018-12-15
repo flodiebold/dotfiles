@@ -44,7 +44,7 @@
   (define-key evil-visual-state-map "O" nil)
   (define-key evil-visual-state-map "l" 'exchange-point-and-mark)
 
-  (eval-after-load 'evil-iedit-state
+  (with-eval-after-load 'evil-iedit-state
     (define-key evil-iedit-state-map "o" nil)
     (define-key evil-iedit-state-map "O" nil))
 
