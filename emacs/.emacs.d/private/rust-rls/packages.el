@@ -46,7 +46,7 @@
       (spacemacs/declare-prefix-for-mode 'rust-mode "mc" "cargo")
       (spacemacs/declare-prefix-for-mode 'rust-mode "mt" "cargo test")
       (spacemacs/set-leader-keys-for-major-mode 'rust-mode
-        "," 'lsp-ui-sideline-apply-code-actions
+        "," 'lsp-execute-code-action
         "c." 'cargo-process-repeat
         "cC" 'cargo-process-clean
         "cX" 'cargo-process-run-example
