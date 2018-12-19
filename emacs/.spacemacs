@@ -97,6 +97,11 @@ values."
                                       (lsp-mode :location "~/Projekte/opensource/lsp-mode")
                                       (company-lsp :location "~/Projekte/opensource/company-lsp")
                                       (jsx-flow-mode :location "~/Projekte/privat/jsx-flow-mode")
+                                      closql
+                                      (forge :location (recipe
+                                                        :fetcher github
+                                                        :files ("lisp/*.el")
+                                                        :repo "magit/forge"))
                                       )
    ;; TODO: enable smartparens in scss-mode; put into layer
    ;; A list of packages and/or extensions that will not be install and loaded.
@@ -293,7 +298,8 @@ layers configuration."
   (add-hook 'clojure-mode-hook #'evil-cleverparens-mode)
   (evil-declare-ignore-repeat 'recenter-top-bottom)
   (evil-declare-ignore-repeat 'move-beginning-of-line)
-  (auth-pass-enable)
+  (require 'auth-source-pass)
+  (auth-source-pass-enable)
   (setq erc-server-list
         '(("irc.freenode.net"
            :port "6697"
