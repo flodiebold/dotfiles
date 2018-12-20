@@ -63,9 +63,6 @@
         "tf" 'cargo-process-current-file-tests
         "tt" 'cargo-process-current-test))))
 
-(defun rust-rls/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'rust-mode))
-
 (defun rust-rls/init-rust-mode ()
   (use-package rust-mode
     :defer t
