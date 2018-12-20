@@ -102,6 +102,9 @@ values."
                                                         :fetcher github
                                                         :files ("lisp/*.el")
                                                         :repo "magit/forge"))
+                                      (ghub :location (recipe
+                                                       :fetcher github
+                                                       :repo "magit/ghub"))
                                       )
    ;; TODO: enable smartparens in scss-mode; put into layer
    ;; A list of packages and/or extensions that will not be install and loaded.
