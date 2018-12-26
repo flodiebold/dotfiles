@@ -330,7 +330,7 @@ layers configuration."
     "Spaceline segment showing LSP status."
     (when (bound-and-true-p lsp-mode) (or lsp-status "LSP")))
   (setq lsp-rust-rls-command '("env" "RUST_BACKTRACE=full" "rls" "+nightly"))
-  (setq lsp-rust-rust-analyzer-command '("/home/florian/Projekte/opensource/rust-analyzer/target/debug/ra_lsp_server"))
+  (setq lsp-rust-rust-analyzer-command '("/home/florian/Projekte/opensource/rust-analyzer/target/release/ra_lsp_server"))
   (setq ranger-cleanup-on-disable t)
   (add-hook 'before-save-hook (lambda () (when (eq 'typescript-mode major-mode)
                                            (prettier))))
