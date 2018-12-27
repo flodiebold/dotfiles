@@ -1,0 +1,39 @@
+{
+  "commands": {
+    "key": "r",
+    "name": "Root",
+    "children": [
+        {
+            "key": "e",
+            "name": "emacs",
+            "cmd": "emacs"
+        },
+        {
+            "key": "c",
+            "name": "chrome",
+            "cmd": "google-chrome"
+        },
+        {
+            "key": "l",
+            "name": "lock/suspend",
+            "children": [
+                {
+                    "key": "l",
+                    "name": "lock",
+                    "cmd": "xset dpms force off"
+                },
+                {
+                    "key": "s",
+                    "name": "suspend",
+                    "cmd": "systemctl suspend"
+                },
+                {
+                    "key": "h",
+                    "name": "hibernate",
+                    "cmd": "systemctl hibernate"
+                }
+            ]
+        }
+    ]
+  }
+}
