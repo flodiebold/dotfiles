@@ -182,7 +182,8 @@ bindsym Print exec --no-startup-id scrot -e 'mv $f ~/Bilder'
 bindsym --release Shift+Print exec --no-startup-id scrot --select -e 'mv $f ~/Bilder'
 
 # lock screen
-bindsym --release $mod+l exec --no-startup-id xset dpms force off
+# bindsym --release $mod+l exec --no-startup-id xset dpms force off
+bindsym --release $mod+l exec spacerun -s l
 
 # spacerun
 bindsym --release $mod+space exec spacerun

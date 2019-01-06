@@ -1,34 +1,39 @@
 {
   "commands": {
-    "key": "r",
+    "shortcut": "SPC",
     "name": "Root",
     "children": [
         {
-            "key": "e",
+            "shortcut": "e",
             "name": "emacs",
             "cmd": "emacs"
         },
         {
-            "key": "c",
+            "shortcut": "c",
             "name": "chrome",
             "cmd": "google-chrome"
         },
         {
-            "key": "l",
+            "shortcut": "n",
+            "name": "nautilus",
+            "cmd": "nautilus"
+        },
+        {
+            "shortcut": "l",
             "name": "lock/suspend",
             "children": [
                 {
-                    "key": "l",
+                    "shortcut": "l",
                     "name": "lock",
                     "cmd": "xset dpms force off"
                 },
                 {
-                    "key": "s",
+                    "shortcut": "s",
                     "name": "suspend",
                     "cmd": "systemctl suspend"
                 },
                 {
-                    "key": "h",
+                    "shortcut": "h",
                     "name": "hibernate",
                     "cmd": "systemctl hibernate"
                 }
