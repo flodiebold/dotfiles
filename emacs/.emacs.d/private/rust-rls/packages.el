@@ -17,10 +17,12 @@
     (helm-xref :requires helm)
     rust-mode
     toml-mode
-    lsp-rust
     ))
 
-;; TODO: format via rls
+;; TODO: format via ra
+;; TODO: properly set up RA here
+;; TODO: fix company-lsp caching
+;; TODO: look into using / stealing stuff from rustic-mode
 
 (defun rust-rls/init-helm-xref ()
   (use-package helm-xref
@@ -46,6 +48,7 @@
       (spacemacs/declare-prefix-for-mode 'rust-mode "mt" "cargo test")
       (spacemacs/set-leader-keys-for-major-mode 'rust-mode
         "," 'lsp-execute-code-action
+        "\r" 'rust-analyzer-run
         "c." 'cargo-process-repeat
         "cC" 'cargo-process-clean
         "cX" 'cargo-process-run-example
@@ -71,9 +74,10 @@
       (spacemacs/lsp-bind-keys-for-mode 'jsx-flow-mode)
       (spacemacs/set-leader-keys-for-major-mode 'rust-mode
         "=b" 'rust-format-buffer
-        "q" 'spacemacs/rust-quick-run)
-      ;; (evil-define-key 'insert rust-mode-map
-      ;;   (kbd ".") 'rustrls/completing-dot)
+        "q" 'spacemacs/rust-quick-run
+        "rr" 'lsp-rename)
+      (evil-define-key '(normal motion) rust-mode-map
+        "N" 'rust-analyzer-join-lines)
       )))
 
 (defun rust-rls/init-toml-mode ()
