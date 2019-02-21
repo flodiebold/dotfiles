@@ -92,6 +92,10 @@
     (define-key magit-mode-map "n" nil)
     (define-key magit-mode-map "e" nil)
     (define-key magit-mode-map "o" nil)
+    (define-key magit-blob-mode-map "y" nil)
+    (define-key magit-blob-mode-map "n" nil)
+    (define-key magit-blob-mode-map "e" nil)
+    (define-key magit-blob-mode-map "o" nil)
     (evil-define-key 'evil-magit-state magit-mode-map
       "y" nil
       "n" nil
