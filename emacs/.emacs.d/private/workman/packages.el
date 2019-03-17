@@ -35,8 +35,8 @@
 
   (define-key evil-normal-state-map "l" 'evil-open-below)
   (define-key evil-normal-state-map "L" 'evil-open-above)
-  (define-key evil-normal-state-map "j" 'evil-search-next)
-  (define-key evil-normal-state-map "J" 'evil-search-previous)
+  (define-key evil-normal-state-map "j" 'evil-ex-search-next)
+  (define-key evil-normal-state-map "J" 'evil-ex-search-previous)
   (define-key evil-normal-state-map "h" 'evil-yank)
   (define-key evil-normal-state-map "H" 'evil-yank-line)
 
