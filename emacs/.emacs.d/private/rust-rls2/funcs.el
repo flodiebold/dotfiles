@@ -9,15 +9,13 @@
 ;;
 ;;; License: GPLv3
 
-(defun spacemacs/racer-describe ()
-  "Show a *Racer Help* buffer for the function or type at point.
-If `help-window-select' is non-nil, also select the help window."
-  (interactive)
-  (let ((window (racer-describe)))
-    (when help-window-select
-      (select-window window))))
+(defun spacemacs//rust-rls2-setup-lsp ()
+  "Setup lsp backend"
+  (if (configuration-layer/layer-used-p 'lsp)
+      (lsp)
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
-(defun spacemacs/rust-quick-run ()
+(defun spacemacs//rust-quick-run ()
   "Quickly run a Rust file using rustc.
 Meant for a quick-prototype flow only - use `spacemacs/open-junk-file' to
 open a junk Rust file, type in some code and quickly run it.
@@ -31,3 +29,4 @@ using `cargo-process-run'."
              (shell-quote-argument output-file-name)
              (shell-quote-argument input-file-name)
              (shell-quote-argument output-file-name)))))
+

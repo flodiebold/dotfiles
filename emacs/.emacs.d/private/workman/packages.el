@@ -9,6 +9,7 @@
         evil-cleverparens
         cargo-process
         magit
+        evil-magit
         ranger))
 
 (defun workman/post-init-evil ()
@@ -96,6 +97,10 @@
     (define-key magit-blob-mode-map "n" nil)
     (define-key magit-blob-mode-map "e" nil)
     (define-key magit-blob-mode-map "o" nil)
+    (define-key magit-blame-read-only-mode-map "n" nil)))
+
+(defun workman/pre-init-evil-magit ()
+  (with-eval-after-load 'evil-magit
     (evil-define-key 'evil-magit-state magit-mode-map
       "y" nil
       "n" nil
@@ -110,9 +115,7 @@
       "y" nil
       "n" nil
       "e" nil
-      "o" nil)
-    (define-key magit-blame-read-only-mode-map "n" nil)
-    ))
+      "o" nil)))
 
 (defun workman/sp-transpose-backwards (&optional arg)
   ""
@@ -140,34 +143,36 @@
 (defun workman/pre-init-evil-cleverparens ()
   (spacemacs|use-package-add-hook evil-cleverparens
     :post-init
-    (evil-define-key 'normal evil-cleverparens-mode-map
-      "y" nil
-      "n" nil
-      "e" nil
-      "o" nil
-      "Y" nil
-      "N" nil
-      "E" nil
-      "O" nil
-      "l" nil
-      "L" nil
-      (kbd "M-o") nil
-      (kbd "M-O") nil)
-
-    (evil-define-key 'visual evil-cleverparens-mode-map
-      "y" nil
-      "Y" nil)
-
+    (autoload 'evil-cp-backward-symbol-begin "evil-cleverparens")
+    (autoload 'evil-cp-forward-symbol-end "evil-cleverparens")
     (define-key evil-motion-state-map "Y" 'evil-cp-backward-symbol-begin)
     (define-key evil-motion-state-map "O" 'evil-cp-forward-symbol-end)
+    ;; :post-config doesn't work, https://github.com/jwiegley/use-package/issues/688
+    (with-eval-after-load 'evil-cleverparens
+      (evil-define-key 'normal evil-cleverparens-mode-map
+        "y" nil
+        "n" nil
+        "e" nil
+        "o" nil
+        "Y" nil
+        "N" nil
+        "E" nil
+        "O" nil
+        "l" nil
+        "L" nil
+        (kbd "M-o") nil
+        (kbd "M-O") nil)
 
-    (evil-define-key 'normal evil-cleverparens-mode-map (kbd "M-n") 'evil-cp-drag-forward)
-    (evil-define-key 'normal evil-cleverparens-mode-map (kbd "M-e") 'evil-cp-drag-backward)
+      (evil-define-key 'visual evil-cleverparens-mode-map
+        "y" nil
+        "Y" nil)
+      (evil-define-key 'normal evil-cleverparens-mode-map (kbd "M-n") 'evil-cp-drag-forward)
+      (evil-define-key 'normal evil-cleverparens-mode-map (kbd "M-e") 'evil-cp-drag-backward)
 
-    (evil-define-key 'normal evil-cleverparens-mode-map "h" 'evil-cp-yank)
-    (evil-define-key 'normal evil-cleverparens-mode-map "H" 'evil-cp-yank-line)
-    (evil-define-key 'normal evil-cleverparens-mode-map (kbd "M-l") 'evil-cp-open-below-form)
-    (evil-define-key 'normal evil-cleverparens-mode-map (kbd "M-L") 'evil-cp-open-above-form)))
+      (evil-define-key 'normal evil-cleverparens-mode-map "h" 'evil-cp-yank)
+      (evil-define-key 'normal evil-cleverparens-mode-map "H" 'evil-cp-yank-line)
+      (evil-define-key 'normal evil-cleverparens-mode-map (kbd "M-l") 'evil-cp-open-below-form)
+      (evil-define-key 'normal evil-cleverparens-mode-map (kbd "M-L") 'evil-cp-open-above-form))))
 
 (defun workman/pre-init-ranger ()
   (spacemacs|use-package-add-hook ranger
