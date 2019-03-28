@@ -61,7 +61,7 @@ values."
             shell-default-position 'full)
      (syntax-checking :variables
                       syntax-checking-enable-tooltips nil)
-     ;; react-flow
+     react-flow
      version-control
      finance
      ;; rust

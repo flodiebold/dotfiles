@@ -31,16 +31,15 @@
     :config
     (progn
       (add-to-list 'auto-mode-alist '("\\.js\\'" . jsx-flow-mode))
-      (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-flow-mode))
-      ;; (evil-leader/set-key-for-mode 'jsx-flow-mode "gg" 'jsx-flow/get-def-at-point)
-      (spacemacs/lsp-bind-keys-for-mode 'jsx-flow-mode)
-      )))
+      (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-flow-mode)))))
 
 (defun react-flow/post-init-company ()
-  (push 'company-lsp company-backends-jsx-flow-mode)
-  (push 'company-jsx-flow-import-backend company-backends-jsx-flow-mode)
-  (spacemacs|add-company-hook jsx-flow-mode)
-  (add-hook 'jsx-flow-mode-hook
-            (lambda ()
-              (setq-local company-tooltip-align-annotations t)))
-  )
+  (if (configuration-layer/layer-used-p 'lsp)
+      (progn
+        (spacemacs|add-company-backends
+          :backends (company-lsp company-jsx-flow-import-backend)
+          :modes jsx-flow-mode)
+        (add-hook 'jsx-flow-mode-hook
+                  (lambda ()
+                    (setq-local company-tooltip-align-annotations t))))
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
