@@ -39,8 +39,8 @@ bindsym $mod+Return exec alacritty
 # kill focused window
 bindsym $mod+Shift+q kill
 
-bindsym $mod+r exec --no-startup-id "rofi -show drun -modi drun,run"
-bindsym $mod+g exec --no-startup-id "rofi -show window -modi window"
+bindsym $mod+r exec --no-startup-id "rofi -show drun -modi drun,run -theme solarized_alternate"
+bindsym $mod+g exec --no-startup-id "rofi -show window -modi window -theme solarized_alternate"
 
 # change focus
 bindsym $mod+y focus left
