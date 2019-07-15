@@ -4,9 +4,7 @@
   '((jsx-flow-mode :location
                    (recipe
                     :fetcher github
-                    :branch "lsp"
                     :repo "flodiebold/jsx-flow-mode"))
-    company
     (prettier-js :location local)))
 
 (defvar-local react-flow--prettier-enabled t)
@@ -31,15 +29,5 @@
     :config
     (progn
       (add-to-list 'auto-mode-alist '("\\.js\\'" . jsx-flow-mode))
-      (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-flow-mode)))))
-
-(defun react-flow/post-init-company ()
-  (if (configuration-layer/layer-used-p 'lsp)
-      (progn
-        (spacemacs|add-company-backends
-          :backends (company-lsp company-jsx-flow-import-backend)
-          :modes jsx-flow-mode)
-        (add-hook 'jsx-flow-mode-hook
-                  (lambda ()
-                    (setq-local company-tooltip-align-annotations t))))
-    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
+      (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-flow-mode))
+      (evil-leader/set-key-for-mode 'jsx-flow-mode "gg" 'jsx-flow/get-def-at-point))))
