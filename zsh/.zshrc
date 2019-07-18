@@ -32,7 +32,7 @@ setopt nolistbeep
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git lein mercurial screen dnf zsh-syntax-highlighting pass cargo docker)
+plugins=(git lein mercurial screen dnf pass cargo docker)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -51,10 +51,6 @@ fi
 GPG_TTY=$(tty) ; export GPG_TTY
 GPG_AGENT_INFO=/run/user/1000/gnupg/S.gpg-agent:$(pidof gpg-agent):1
 export GPG_AGENT_INFO
-
-if which fd > /dev/null 2> /dev/null; then
-    alias find=fd
-fi
 
 if which exa > /dev/null 2> /dev/null; then
     alias ls=exa
