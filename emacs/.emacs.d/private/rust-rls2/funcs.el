@@ -12,7 +12,9 @@
 (defun spacemacs//rust-rls2-setup-lsp ()
   "Setup lsp backend"
   (if (configuration-layer/layer-used-p 'lsp)
-      (lsp)
+      (progn
+        (lsp)
+        (lsp-rust-analyzer-inlay-hints-mode))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 (defun spacemacs//rust-quick-run ()

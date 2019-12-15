@@ -28,8 +28,6 @@
     :defer t
     :init
     (progn
-      (with-eval-after-load 'lsp
-        (require 'ra-emacs-lsp))
       (spacemacs/set-leader-keys-for-major-mode 'rust-mode
         "\r" 'rust-analyzer-run
         "," 'lsp-execute-code-action))))
@@ -68,7 +66,7 @@
         "==" 'rust-format-buffer
         "q" 'spacemacs/rust-quick-run)
       (evil-define-key '(normal motion) rust-mode-map
-        "N" 'rust-analyzer-join-lines))))
+        "N" 'lsp-rust-analyzer-join-lines))))
 
 (defun rust-rls2/init-toml-mode ()
   (use-package toml-mode
