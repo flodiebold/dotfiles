@@ -10,6 +10,6 @@ done
 if [ -x "${DIR}/node_modules/.bin/prettier" ]; then
     exec "${DIR}/node_modules/.bin/prettier" "$@"
 else
-    echo No ESLint found! >&2
+    echo No prettier binary found in the nearest node_modules folder! >&2
     exit 1
 fi

@@ -30,7 +30,7 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(ruby
+   '(sql
      (spacemacs-evil :variables vim-style-visual-feedback t)
      typescript
      lua
