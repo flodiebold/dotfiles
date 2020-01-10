@@ -78,6 +78,7 @@ values."
      ranger
      lsp
      github
+     ivy
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -88,7 +89,7 @@ values."
                                       (magit-gerrit :location "~/Projekte/opensource/magit-gerrit")
                                       groovy-mode
                                       glsl-mode
-                                      auth-password-store
+                                      ;; auth-password-store
                                       kotlin-mode
                                       jsonnet-mode
                                       markdown-mode
@@ -334,7 +335,7 @@ layers configuration."
   ;; (spaceline-define-segment lsp-status
   ;;   "Spaceline segment showing LSP status."
   ;;   (when (bound-and-true-p lsp-mode) (or lsp-status "LSP")))
-  (setq lsp-rust-analyzer-server-command '("env" "RUST_LOG=error" "RA_PROFILE=*>16" "ra_lsp_server"))
+  (setq lsp-rust-analyzer-server-command '("env" "RUST_LOG=error" "RA_PROFILE=*>16" "RUST_BACKTRACE=1" "ra_lsp_server"))
   ;; (setq company-lsp--snippet-functions (assq-delete-all "rust" company-lsp--snippet-functions))
   (setq ranger-cleanup-on-disable t)
   (add-hook 'before-save-hook (lambda () (when (eq 'typescript-mode major-mode)
