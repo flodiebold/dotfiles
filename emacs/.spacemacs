@@ -294,6 +294,7 @@ layers configuration."
   (setq scss-compile-at-save nil)
   (setq org-startup-indented nil)
   (setq lsp-rust-server 'rust-analyzer)
+  (setq lsp-ui-sideline-enable nil)
   ;; (spacemacs/toggle-evil-cleverparens-on)
   (setq helm-ag-base-command "rg --vimgrep --no-heading")
   (setq avy-keys (list ?a ?s ?h ?t ?n ?e ?o ?i)) ;; TODO: move this into workman layer
