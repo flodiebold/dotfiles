@@ -71,7 +71,7 @@ values."
      workman
      gerrit
      go
-     scala
+     ;; scala
      shell-scripts
      docker
      erc
