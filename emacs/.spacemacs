@@ -280,7 +280,6 @@ executes.
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
   ;; User initialization goes here
-  (add-to-load-path "~/Projekte/opensource/rust-analyzer/editors/emacs")
   (setq solarized-use-variable-pitch nil)
   (setq solarized-scale-org-headlines nil)
   (setq lsp-ui-remap-xref-keybindings t)

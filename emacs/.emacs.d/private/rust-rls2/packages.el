@@ -29,7 +29,7 @@
     :init
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'rust-mode
-        "\r" 'rust-analyzer-run
+        "\r" 'lsp-rust-analyzer-run
         "," 'lsp-execute-code-action))))
 
 (defun rust-rls2/init-cargo ()
