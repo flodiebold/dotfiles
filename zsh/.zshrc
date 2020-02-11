@@ -49,8 +49,9 @@ if [ -f $HOME/.env-local ]; then
 fi
 
 GPG_TTY=$(tty) ; export GPG_TTY
-GPG_AGENT_INFO=/run/user/1000/gnupg/S.gpg-agent:$(pidof gpg-agent):1
-export GPG_AGENT_INFO
+export GPG_AGENT_INFO=$(gpgconf --list-dirs agent-socket):$(pidof gpg-agent):1
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+gpgconf --launch gpg-agent
 
 if which exa > /dev/null 2> /dev/null; then
     alias ls=exa
