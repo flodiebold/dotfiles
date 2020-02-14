@@ -14,7 +14,7 @@
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
         (lsp)
-        (lsp-rust-analyzer-inlay-hints-mode))
+        (lsp-rust-analyzer-inlay-hints-mode +1))
     (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 (defun spacemacs//rust-quick-run ()

@@ -294,6 +294,7 @@ layers configuration."
   (setq org-startup-indented nil)
   (setq lsp-rust-server 'rust-analyzer)
   (setq lsp-ui-sideline-enable nil)
+  (setq lsp-diagnostic-package :flycheck)
   ;; (spacemacs/toggle-evil-cleverparens-on)
   (setq helm-ag-base-command "rg --vimgrep --no-heading")
   (setq avy-keys (list ?a ?s ?h ?t ?n ?e ?o ?i)) ;; TODO: move this into workman layer

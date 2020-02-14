@@ -13,24 +13,11 @@
   '(cargo
     company
     rust-mode
-    toml-mode
-    (ra-emacs-lsp :location built-in)))
+    toml-mode))
 
 ;; TODO: format via RA/LSP
-;; TODO: properly set up RA here
-;; TODO: fix company-lsp caching
-;; TODO: fix (i.e. disable) company-lsp function snippet
 ;; TODO: look into disabling some expand-region expansions
 ;; TODO: look into using / stealing stuff from rustic-mode
-
-(defun rust-rls2/init-ra-emacs-lsp ()
-  (use-package ra-emacs-lsp
-    :defer t
-    :init
-    (progn
-      (spacemacs/set-leader-keys-for-major-mode 'rust-mode
-        "\r" 'lsp-rust-analyzer-run
-        "," 'lsp-execute-code-action))))
 
 (defun rust-rls2/init-cargo ()
   (use-package cargo
@@ -64,6 +51,8 @@
       (spacemacs/add-to-hook 'rust-mode-hook '(spacemacs//rust-rls2-setup-lsp))
       (spacemacs/set-leader-keys-for-major-mode 'rust-mode
         "==" 'rust-format-buffer
+        "\r" 'lsp-rust-analyzer-run
+        "," 'lsp-execute-code-action
         "q" 'spacemacs/rust-quick-run)
       (evil-define-key '(normal motion) rust-mode-map
         "N" 'lsp-rust-analyzer-join-lines))))
