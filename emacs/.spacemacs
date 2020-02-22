@@ -336,7 +336,7 @@ layers configuration."
   ;; (spaceline-define-segment lsp-status
   ;;   "Spaceline segment showing LSP status."
   ;;   (when (bound-and-true-p lsp-mode) (or lsp-status "LSP")))
-  (setq lsp-rust-analyzer-server-command '("env" "RUST_LOG=error" "RA_PROFILE=*>16" "RUST_BACKTRACE=1" "ra_lsp_server"))
+  (setq lsp-rust-analyzer-server-command '("env" "RUST_LOG=error" "RA_PROFILE=*>16" "RUST_BACKTRACE=1" "rust-analyzer"))
   ;; (setq company-lsp--snippet-functions (assq-delete-all "rust" company-lsp--snippet-functions))
   (setq ranger-cleanup-on-disable t)
   (add-hook 'before-save-hook (lambda () (when (eq 'typescript-mode major-mode)
