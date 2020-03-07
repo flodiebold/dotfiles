@@ -295,6 +295,7 @@ layers configuration."
   (setq lsp-rust-server 'rust-analyzer)
   (setq lsp-ui-sideline-enable nil)
   (setq lsp-diagnostic-package :flycheck)
+  (setq lsp-prefer-flymake nil)
   ;; (spacemacs/toggle-evil-cleverparens-on)
   (setq helm-ag-base-command "rg --vimgrep --no-heading")
   (setq avy-keys (list ?a ?s ?h ?t ?n ?e ?o ?i)) ;; TODO: move this into workman layer
@@ -345,6 +346,8 @@ layers configuration."
   (add-to-list 'forge-alist '("git.metrosystems.net" "git.metrosystems.net/api/v4" "git.metrosystems.net" forge-gitlab-repository))
 
   (advice-add 'auth-source-pass--find-one-by-entry-name :around #'auth-source-pass--find-one-by-entry-name-fix-name)
+
+  (setq evil-goto-definition-functions '(evil-goto-definition-xref))
   )
 
 (defun auth-source-pass--find-one-by-entry-name-fix-name (orig-fun entryname user &rest args)
