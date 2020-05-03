@@ -53,7 +53,37 @@ export GPG_AGENT_INFO=$(gpgconf --list-dirs agent-socket):$(pidof gpg-agent):1
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 gpgconf --launch gpg-agent
 
+# exa (https://github.com/ogham/exa)
 if which exa > /dev/null 2> /dev/null; then
     alias ls=exa
     alias tree="exa --tree"
+fi
+
+# zoxide (https://github.com/ajeetdsouza/zoxide)
+if which zoxide > /dev/null 2> /dev/null; then
+    _zoxide_precmd() {
+        zoxide add
+    }
+
+    precmd_functions+=_zoxide_precmd
+
+    z() {
+        if [ $# -ne 0 ]; then
+            _Z_RESULT=$(zoxide query "$@")
+            case $_Z_RESULT in
+                "query: "*)
+                    cd "${_Z_RESULT:7}"
+                    ;;
+                *)
+                    echo "${_Z_RESULT}"
+                    ;;
+            esac
+        fi
+    }
+
+    alias zi="z -i"
+
+    alias za="zoxide add"
+    alias zq="zoxide query"
+    alias zr="zoxide remove"
 fi
