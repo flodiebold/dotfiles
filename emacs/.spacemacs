@@ -337,8 +337,14 @@ layers configuration."
   ;; (spaceline-define-segment lsp-status
   ;;   "Spaceline segment showing LSP status."
   ;;   (when (bound-and-true-p lsp-mode) (or lsp-status "LSP")))
-  (setq lsp-rust-analyzer-server-command '("env" "RUST_LOG=error" "RA_PROFILE=*>16" "RUST_BACKTRACE=1" "rust-analyzer"))
-  ;; (setq company-lsp--snippet-functions (assq-delete-all "rust" company-lsp--snippet-functions))
+  (setq lsp-rust-analyzer-server-command '("env" "RUST_LOG=error,rust_analyzer::config" "RA_PROFILE=*>400" "RUST_BACKTRACE=1" "rust-analyzer"))
+  ;; (setq lsp-rust-analyzer-server-command '("env" "RUST_LOG=rust_analyzer::config" "RUST_BACKTRACE=1" "rust-analyzer"))
+  (setq lsp-rust-analyzer-completion-add-call-argument-snippets nil)
+  (setq lsp-rust-analyzer-call-info-full nil)
+  (setq lsp-rust-analyzer-server-display-inlay-hints t)
+  (setq lsp-rust-analyzer-display-chaining-hints t)
+  (setq lsp-rust-analyzer-display-parameter-hints t)
+  (setq company-lsp--snippet-functions (assq-delete-all "rust" company-lsp--snippet-functions))
   (setq ranger-cleanup-on-disable t)
   (add-hook 'before-save-hook (lambda () (when (eq 'typescript-mode major-mode)
                                            (prettier))))
