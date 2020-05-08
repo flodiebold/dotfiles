@@ -344,7 +344,7 @@ layers configuration."
   (setq lsp-rust-analyzer-server-display-inlay-hints t)
   (setq lsp-rust-analyzer-display-chaining-hints t)
   (setq lsp-rust-analyzer-display-parameter-hints t)
-  (setq company-lsp--snippet-functions (assq-delete-all "rust" company-lsp--snippet-functions))
+  ;; (setq company-lsp--snippet-functions (assq-delete-all "rust" company-lsp--snippet-functions))
   (setq ranger-cleanup-on-disable t)
   (add-hook 'before-save-hook (lambda () (when (eq 'typescript-mode major-mode)
                                            (prettier))))
