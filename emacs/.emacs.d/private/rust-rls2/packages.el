@@ -11,11 +11,9 @@
 
 (setq rust-rls2-packages
   '(cargo
-    company
     rust-mode
     toml-mode))
 
-;; TODO: format via RA/LSP
 ;; TODO: look into disabling some expand-region expansions
 ;; TODO: look into using / stealing stuff from rustic-mode
 
@@ -60,14 +58,6 @@
 (defun rust-rls2/init-toml-mode ()
   (use-package toml-mode
     :mode "/\\(Cargo.lock\\|\\.cargo/config\\)\\'"))
-
-(defun rust-rls2/post-init-company ()
-  (if (configuration-layer/layer-used-p 'lsp)
-      (progn
-        (spacemacs|add-company-backends
-          :backends company-lsp
-          :modes rust-mode))
-    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
 
 (defun rust-rls2/post-init-smartparens ()
   (with-eval-after-load 'smartparens

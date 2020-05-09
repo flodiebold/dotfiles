@@ -86,7 +86,7 @@ values."
    ;; configuration in `dotspacemacs/config'.
    dotspacemacs-additional-packages '(scss-mode
                                       yaml-mode
-                                      (magit-gerrit :location "~/Projekte/opensource/magit-gerrit")
+                                      ;; (magit-gerrit :location "~/Projekte/opensource/magit-gerrit")
                                       groovy-mode
                                       glsl-mode
                                       ;; auth-password-store
@@ -96,7 +96,6 @@ values."
                                       ht
                                       ;; (lsp-ui :location "~/Projekte/opensource/lsp-ui")
                                       ;; (lsp-mode :location "~/Projekte/opensource/lsp-mode")
-                                      ;; (company-lsp :location "~/Projekte/opensource/company-lsp")
                                       (jsx-flow-mode :location "~/Projekte/privat/jsx-flow-mode")
                                       ;; closql
                                       ;; (forge :location (recipe
