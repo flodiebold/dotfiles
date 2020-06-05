@@ -424,7 +424,6 @@ layers configuration."
  '(safe-local-variable-values
    (quote
     ((lsp-rust--use-rust-analyzer . t)
-     (magit-gerrit-port . 2222)
      (magit-gerrit-ssh-creds . "florian.diebold@gerrit.metrosystems.net")
      (magit-gerrit-ssh-creds . "florian.diebold@gerrit.metrosystems.net:2222")
      (projectile-project-run-cmd . "CARGO_INCREMENTAL=1 cargo run")
@@ -519,9 +518,6 @@ This function is called at the very end of Spacemacs initialization."
  '(safe-local-variable-values
    (quote
     ((lsp-rust--use-rust-analyzer . t)
-     (magit-gerrit-port . 2222)
-     (magit-gerrit-ssh-creds . "florian.diebold@gerrit.metrosystems.net")
-     (magit-gerrit-ssh-creds . "florian.diebold@gerrit.metrosystems.net:2222")
      (projectile-project-run-cmd . "CARGO_INCREMENTAL=1 cargo run")
      (projectile-project-test-cmd . "CARGO_INCREMENTAL=1 cargo test")
      (projectile-project-compilation-cmd . "CARGO_INCREMENTAL=1 cargo build"))))
