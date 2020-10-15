@@ -336,8 +336,9 @@ layers configuration."
   ;; (spaceline-define-segment lsp-status
   ;;   "Spaceline segment showing LSP status."
   ;;   (when (bound-and-true-p lsp-mode) (or lsp-status "LSP")))
-  (setq lsp-rust-analyzer-server-command '("env" "RUST_LOG=error,rust_analyzer::config" "RA_PROFILE=*>400" "RUST_BACKTRACE=1" "rust-analyzer"))
-  ;; (setq lsp-rust-analyzer-server-command '("env" "RUST_LOG=rust_analyzer::config" "RUST_BACKTRACE=1" "rust-analyzer"))
+  ;; (setq lsp-rust-analyzer-server-command '("env" "RA_LOG=error,rust_analyzer::config" "RA_PROFILE=*>400" "RUST_BACKTRACE=1" "rust-analyzer"))
+  (setq lsp-rust-analyzer-server-command '("env"))
+  (setq lsp-rust-analyzer-server-args '("RA_LOG=error,rust_analyzer::config" "RA_PROFILE=*>400" "RUST_BACKTRACE=1" "rust-analyzer"))
   (setq lsp-rust-analyzer-completion-add-call-argument-snippets nil)
   (setq lsp-rust-analyzer-call-info-full nil)
   (setq lsp-rust-analyzer-server-display-inlay-hints t)
