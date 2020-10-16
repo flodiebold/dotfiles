@@ -299,8 +299,8 @@ layers configuration."
   (setq helm-ag-base-command "rg --vimgrep --no-heading")
   (setq avy-keys (list ?a ?s ?h ?t ?n ?e ?o ?i)) ;; TODO: move this into workman layer
   (setq neo-theme 'ascii)
-  (setq prettier-args '("--tab-width" "4" "--jsx-bracket-same-line"))
-  (setq prettier-width-mode 'fill)
+  (setq prettier-args nil)
+  (setq prettier-width-mode nil)
   (add-hook 'jsx-flow-mode-hook
             (lambda () (setq-local fill-column 120)))
   (bind-key "C-j" 'newline-and-indent)
