@@ -58,11 +58,11 @@
 (defun workman/pre-init-evil-org ()
   (spacemacs|use-package-add-hook evil-org
     :post-config
-    (evil-define-key 'normal evil-org-mode-map
+    (evil-define-key 'normal 'evil-org-mode
       "O" nil
       "o" nil)
 
-    (evil-define-key 'normal evil-org-mode-map
+    (evil-define-key 'normal 'evil-org-mode
       ;; "gn" 'outline-down-heading
       "ge" 'outline-up-heading
       "go" 'org-forward-heading-same-level
@@ -76,7 +76,7 @@
       (kbd "M-O") 'org-shiftmetaright
       (kbd "M-N") 'org-shiftmetadown)
 
-    (evil-define-key 'insert evil-org-mode-map
+    (evil-define-key 'insert 'evil-org-mode
       (kbd "M-y") 'org-metaleft
       (kbd "M-e") 'org-metaup
       (kbd "M-n") 'org-metadown
