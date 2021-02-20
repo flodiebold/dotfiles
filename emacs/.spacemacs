@@ -108,7 +108,7 @@ values."
                                       )
    ;; TODO: enable smartparens in scss-mode; put into layer
    ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '(org-bullets)
+   dotspacemacs-excluded-packages '(org-bullets org-superstar)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'
@@ -289,6 +289,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
  This function is called at the very end of Spacemacs initialization after
 layers configuration."
   (global-company-mode)
+  (setq yas-wrap-around-region nil)
   (setq scss-compile-at-save nil)
   (setq org-startup-indented nil)
   (setq lsp-rust-server 'rust-analyzer)
@@ -344,6 +345,9 @@ layers configuration."
   (setq lsp-rust-analyzer-server-display-inlay-hints t)
   (setq lsp-rust-analyzer-display-chaining-hints t)
   (setq lsp-rust-analyzer-display-parameter-hints t)
+  (setq lsp-rust-analyzer-proc-macro-enable t)
+  (setq lsp-rust-analyzer-cargo-load-out-dirs-from-check t)
+  (setq lsp-rust-analyzer-max-inlay-hint-length 20)
   ;; (setq company-lsp--snippet-functions (assq-delete-all "rust" company-lsp--snippet-functions))
   (setq ranger-cleanup-on-disable t)
   (add-hook 'before-save-hook (lambda () (when (eq 'typescript-mode major-mode)
