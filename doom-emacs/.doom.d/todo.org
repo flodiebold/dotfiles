@@ -1,0 +1,18 @@
+#+TITLE: DOOM Emacs TODO
+* TODO workman keybindings
+* TODO solarized
+* TODO better org display
+* TODO keybindings & stuff
+** comment line -> g c c
+** switch to last buffer? -> SPC `
+** M-x to SPC SPC?
+** O and Y
+** SPC v?
+** evil-cleverparens
+* TODO rust setup
+** yasnippet mode?
+** automatically activate lsp?
+** fix color scheme
+* Good stuff / keybindings
+** Search: SPC s d
+** Buffer search: SPC s s
