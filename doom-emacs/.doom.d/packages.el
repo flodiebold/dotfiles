@@ -2,7 +2,7 @@
 ;;; $DOOMDIR/packages.el
 
 ;; This is where you install packages, by declaring them with the `package!'
-;; macro, then running 'doom refresh' on the command line. You'll need to
+;; macro, then running 'doom sync' on the command line. You'll need to
 ;; restart Emacs for your changes to take effect! Or at least, run M-x
 ;; `doom/reload'.
 ;;
@@ -50,3 +50,5 @@
 ;; This is required for some packages whose default branch isn't 'master' (which
 ;; our package manager can't deal with; see raxod502/straight.el#279)
 ;(package! builtin-package :recipe (:branch "develop"))
+
+(package! solarized-theme)
