@@ -9,10 +9,13 @@
 ** O and Y
 ** SPC v?
 ** evil-cleverparens
+** completion on TAB?
+** surround with s
 * TODO rust setup
 ** yasnippet mode?
 ** automatically activate lsp?
 ** fix color scheme
+** trigger completion?
 * Good stuff / keybindings
 ** Search: SPC s d
 ** Buffer search: SPC s s

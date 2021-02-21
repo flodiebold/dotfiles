@@ -52,3 +52,6 @@
 ;(package! builtin-package :recipe (:branch "develop"))
 
 (package! solarized-theme)
+
+
+(package! evil-cleverparens)

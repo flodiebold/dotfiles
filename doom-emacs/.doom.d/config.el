@@ -6,8 +6,8 @@
 
 ;; These are used for a number of things, particularly for GPG configuration,
 ;; some email clients, file templates and snippets.
-(setq user-full-name "John Doe"
-      user-mail-address "john@doe.com")
+(setq user-full-name "Florian Diebold"
+      user-mail-address "flodiebold@gmail.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
@@ -27,21 +27,35 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. These are the defaults.
-(setq doom-theme 'doom-solarized-dark)
+(setq doom-theme 'solarized-dark)
+(setq solarized-use-variable-pitch nil)
+(setq solarized-scale-org-headlines nil)
 
-;; If you intend to use org, it is recommended you change this!
+;; Org config
 (setq org-directory "~/org/")
+(setq org-startup-indented nil) ;; don't indent stuff
 
 ;; If you want to change the style of line numbers, change this to `relative' or
 ;; `nil' to disable it:
 (setq display-line-numbers-type t)
 
+;; General LSP stuff
 (setq lsp-ui-sideline-enable nil)
+;; (setq evil-goto-definition-functions '(evil-goto-definition-xref))
 
 ;; Rust config
 (setq lsp-rust-server 'rust-analyzer)
 (setenv "RUST_SRC_PATH")
-
+(setq lsp-rust-analyzer-server-command '("env"))
+(setq lsp-rust-analyzer-server-args '("RA_LOG=error,rust_analyzer::config" "RA_PROFILE=*>400" "RUST_BACKTRACE=1" "rust-analyzer"))
+(setq lsp-rust-analyzer-completion-add-call-argument-snippets nil)
+(setq lsp-rust-analyzer-call-info-full nil)
+(setq lsp-rust-analyzer-server-display-inlay-hints t)
+(setq lsp-rust-analyzer-display-chaining-hints t)
+(setq lsp-rust-analyzer-display-parameter-hints t)
+(setq lsp-rust-analyzer-proc-macro-enable t)
+(setq lsp-rust-analyzer-cargo-load-out-dirs-from-check t)
+(setq lsp-rust-analyzer-max-inlay-hint-length 20)
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
