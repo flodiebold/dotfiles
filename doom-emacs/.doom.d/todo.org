@@ -19,3 +19,4 @@
 * Good stuff / keybindings
 ** Search: SPC s d
 ** Buffer search: SPC s s
+** Evil exchange: g x

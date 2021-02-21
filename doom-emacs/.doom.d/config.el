@@ -30,6 +30,9 @@
 (setq doom-theme 'solarized-dark)
 (setq solarized-use-variable-pitch nil)
 (setq solarized-scale-org-headlines nil)
+(setq evil-normal-state-cursor '(box "orange")
+      evil-insert-state-cursor '(bar "medium sea green")
+      evil-visual-state-cursor '(hollow "orange"))
 
 ;; Org config
 (setq org-directory "~/org/")
