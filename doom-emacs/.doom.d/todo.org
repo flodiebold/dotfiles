@@ -1,22 +1,26 @@
 #+TITLE: DOOM Emacs TODO
 * TODO workman keybindings
-* TODO solarized
+* DONE solarized
 * TODO better org display
 * TODO keybindings & stuff
 ** comment line -> g c c
 ** switch to last buffer? -> SPC `
 ** M-x to SPC SPC?
-** O and Y
-** SPC v?
-** evil-cleverparens
-** completion on TAB?
-** surround with s
+** TODO SPC v?
+** TODO evil-cleverparens
+** TODO completion on TAB?
+** surround: S (and dS or cS)
+** leader key
 * TODO rust setup
 ** yasnippet mode?
 ** automatically activate lsp?
 ** fix color scheme
 ** trigger completion?
+** doc popup
 * Good stuff / keybindings
 ** Search: SPC s d
 ** Buffer search: SPC s s
 ** Evil exchange: g x
+** Window management:
+ - SPC w m m maximizes
+** Bookmarks: SPC RET

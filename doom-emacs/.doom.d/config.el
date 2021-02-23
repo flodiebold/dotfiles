@@ -34,6 +34,9 @@
       evil-insert-state-cursor '(bar "medium sea green")
       evil-visual-state-cursor '(hollow "orange"))
 
+;; Global keys
+(setq doom-localleader-key ",")
+
 ;; Org config
 (setq org-directory "~/org/")
 (setq org-startup-indented nil) ;; don't indent stuff
@@ -48,8 +51,10 @@
 
 ;; Rust config
 (setq lsp-rust-server 'rust-analyzer)
+(setq rustic-lsp-server 'rust-analyzer)
 (setenv "RUST_SRC_PATH")
 (setq lsp-rust-analyzer-server-command '("env"))
+(setq rustic-analyzer-command '("env"))
 (setq lsp-rust-analyzer-server-args '("RA_LOG=error,rust_analyzer::config" "RA_PROFILE=*>400" "RUST_BACKTRACE=1" "rust-analyzer"))
 (setq lsp-rust-analyzer-completion-add-call-argument-snippets nil)
 (setq lsp-rust-analyzer-call-info-full nil)
