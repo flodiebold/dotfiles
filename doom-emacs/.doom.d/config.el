@@ -48,6 +48,8 @@
 ;; General LSP stuff
 (setq lsp-ui-sideline-enable nil)
 ;; (setq evil-goto-definition-functions '(evil-goto-definition-xref))
+(setq company-minimum-prefix-length 0)
+(setq company-idle-delay 0.0)
 
 ;; Rust config
 (setq lsp-rust-server 'rust-analyzer)
