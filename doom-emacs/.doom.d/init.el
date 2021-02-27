@@ -91,7 +91,7 @@
        (eval +overlay)     ; run code, run (also, repls)
        ;;gist              ; interacting with github gists
        (lookup           ; helps you navigate your code and documentation
-        +docsets)        ; ...or in Dash docsets locally
+        )
        lsp
        ;;macos             ; MacOS-specific commands
        magit             ; a git porcelain for Emacs

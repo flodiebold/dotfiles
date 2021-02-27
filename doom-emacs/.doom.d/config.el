@@ -39,22 +39,24 @@
 
 ;; Org config
 (setq org-directory "~/org/")
-(setq org-startup-indented nil) ;; don't indent stuff
+;; (setq org-startup-indented nil) ;; don't indent stuff -- this doesn't seem to work, and I've gotten used to the indented mode
 
-;; If you want to change the style of line numbers, change this to `relative' or
-;; `nil' to disable it:
-(setq display-line-numbers-type t)
+;; line numbers
+(setq display-line-numbers-type 'relative)
 
 ;; General LSP stuff
 (setq lsp-ui-sideline-enable nil)
 ;; (setq evil-goto-definition-functions '(evil-goto-definition-xref))
-(setq company-minimum-prefix-length 0)
-(setq company-idle-delay 0.0)
+(setq company-minimum-prefix-length 2)
+(setq company-idle-delay 0.2)
+(setq lsp-file-watch-threshold 2000)
+
+(setq lsp-semantic-tokens-enable t)
 
 ;; Rust config
 (setq lsp-rust-server 'rust-analyzer)
 (setq rustic-lsp-server 'rust-analyzer)
-(setenv "RUST_SRC_PATH")
+(setenv "RUST_SRC_PATH") ;; just to make sure this isn't set
 (setq lsp-rust-analyzer-server-command '("env"))
 (setq rustic-analyzer-command '("env"))
 (setq lsp-rust-analyzer-server-args '("RA_LOG=error,rust_analyzer::config" "RA_PROFILE=*>400" "RUST_BACKTRACE=1" "rust-analyzer"))
@@ -66,6 +68,19 @@
 (setq lsp-rust-analyzer-proc-macro-enable t)
 (setq lsp-rust-analyzer-cargo-load-out-dirs-from-check t)
 (setq lsp-rust-analyzer-max-inlay-hint-length 20)
+
+;; HACK -- redefine this function since it's somehow broken when compiled?
+;; (with-eval-after-load 'lsp-completion
+;;   (defun lsp-completion--looking-back-trigger-characterp (trigger-characters)
+;;     "Return trigger character if text before point match any of the TRIGGER-CHARACTERS."
+;;     (unless (= (point) (point-at-bol))
+;;       (seq-some
+;;        (lambda (trigger-char)
+;;          (and (equal (buffer-substring-no-properties (- (point) (length trigger-char)) (point))
+;;                      trigger-char)
+;;               trigger-char))
+;;        trigger-characters))))
+;; currently deleting the eln file in .emacs.d/.local/cache/eln fixed it
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;

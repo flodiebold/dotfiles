@@ -3,20 +3,19 @@
 * DONE solarized
 * TODO better org display
 * TODO keybindings & stuff
-** comment line -> g c c
-** switch to last buffer? -> SPC `
 ** M-x to SPC SPC?
 ** TODO SPC v?
 ** TODO evil-cleverparens
 ** TODO completion on TAB?
 ** surround: S (and dS or cS)
-** leader key
-* TODO rust setup
-** yasnippet mode?
-** automatically activate lsp?
-** fix color scheme
-** trigger completion?
+** error navigation?
+* rust setup
+** trigger completion
+-> seems to be bug? evaluating lsp-completion--looking-back-trigger-characterp seems to have fixed it
 ** doc popup
+-> disabled by lsp module; instead use K to display docs
+would need to enable lsp-ui-doc-enable, plus set back lsp-ui-doc-max-height/width to reasonable values
+** better keybindings for code actions
 * Good stuff / keybindings
 ** Search: SPC s d
 ** Buffer search: SPC s s
@@ -24,3 +23,6 @@
 ** Window management:
  - SPC w m m maximizes
 ** Bookmarks: SPC RET
+** comment line -> g c c
+** switch to last buffer? -> SPC `
+** show docs: K
