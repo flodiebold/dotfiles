@@ -13,7 +13,7 @@
      ;; `(font-lock-comment-delimiter-face
      ;;   ((,class (:foreground ,base01 :slant ,s-maybe-italic))))
      ;; `(font-lock-comment-face ((,class (:foreground ,base01))))
-     ;; `(font-lock-constant-face ((,class (:foreground ,base1))))
+     `(font-lock-constant-face ((,class (:foreground ,violet))))
      ;; `(font-lock-doc-face ((,class (:foreground ,base01 :slant ,s-maybe-italic))))
      `(font-lock-function-name-face ((,class (:foreground ,base0))))
      ;; `(font-lock-keyword-face ((,class (:foreground ,base01
@@ -28,14 +28,15 @@
      ;; `(font-lock-regexp-grouping-backslash ((,class (:foreground ,green :weight bold))))
      ;; `(font-lock-string-face ((,class (:foreground ,cyan))))
      `(font-lock-type-face ((,class (:foreground ,blue))))
-     `(font-lock-variable-name-face ((,class (:foreground ,base0))))
+     `(font-lock-variable-name-face ((,class (:foreground ,yellow))))
      ;; `(font-lock-warning-face ((,class (:inherit error :weight bold))))
-     ;; `(lsp-face-semhl-macro ((,class (:foreground ,base0))))
+     `(lsp-face-semhl-macro ((,class (:foreground ,base0 :weight ,s-maybe-bold))))
      `(lsp-face-semhl-rust-attribute-element ((,class (:slant ,s-maybe-italic))))
      `(lsp-face-semhl-punctuation ((,class (:foreground ,base01))))
-     `(lsp-face-semhl-keyword-self ((,class (:foreground ,base0 :weight ,s-maybe-bold))))
+     `(lsp-face-semhl-keyword-self ((,class (:foreground ,yellow :weight ,s-maybe-bold))))
      `(lsp-face-semhl-namespace ((,class (:foreground ,blue))))
      `(lsp-face-semhl-consuming ((,class (:weight ,s-maybe-bold))))
+     `(lsp-face-semhl-property ((,class (:foreground ,base0))))
      ;; `(lsp-face-semhl-declaration ((,class ())))
      )))
 
