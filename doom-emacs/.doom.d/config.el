@@ -27,8 +27,9 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. These are the defaults.
-(setq doom-theme 'solarized-dark)
+(setq doom-theme 'my-solarized-dark)
 (setq solarized-use-variable-pitch nil)
+(setq solarized-use-more-italic t)
 (setq solarized-scale-org-headlines nil)
 (setq evil-normal-state-cursor '(box "orange")
       evil-insert-state-cursor '(bar "medium sea green")
@@ -52,6 +53,7 @@
 (setq lsp-file-watch-threshold 2000)
 
 (setq lsp-semantic-tokens-enable t)
+(setq lsp-semantic-tokens-apply-modifiers t)
 
 ;; Rust config
 (setq lsp-rust-server 'rust-analyzer)
@@ -68,6 +70,114 @@
 (setq lsp-rust-analyzer-proc-macro-enable t)
 (setq lsp-rust-analyzer-cargo-load-out-dirs-from-check t)
 (setq lsp-rust-analyzer-max-inlay-hint-length 20)
+
+;; LSP semantic highlighting fixes / theme improvements
+;; add missing method token type
+(after! lsp-semantic-tokens
+  (defface lsp-face-semhl-attribute
+    '((t :inherit font-lock-comment-face))
+    "." :group 'lsp-faces)
+  (defface lsp-face-semhl-boolean
+    '((t :inherit font-lock-constant-face))
+    "." :group 'lsp-faces)
+  (defface lsp-face-semhl-builtin-type
+    '((t :inherit font-lock-type-face))
+    "." :group 'lsp-faces)
+  (defface lsp-face-semhl-lifetime
+    '((t :inherit font-lock-type-face))
+    "." :group 'lsp-faces)
+  (defface lsp-face-semhl-keyword-self
+    '((t :inherit font-lock-keyword-face))
+    "." :group 'lsp-faces)
+  (defface lsp-face-semhl-type-alias
+    '((t :inherit font-lock-type-face))
+    "." :group 'lsp-faces)
+  (defface lsp-face-semhl-union
+    '((t :inherit font-lock-type-face))
+    "." :group 'lsp-faces)
+  (defface lsp-face-semhl-unresolved-reference
+    '((t :inherit font-lock-warning-face))
+    "." :group 'lsp-faces)
+  (defface lsp-face-semhl-rust-format-specifier
+    '((t :inherit font-lock-variable-name-face))
+    "." :group 'lsp-faces)
+  (defface lsp-face-semhl-punctuation
+    '((t))
+    "." :group 'lsp-faces)
+  (defface lsp-face-semhl-parenthesis
+    '((t :inherit lsp-face-semhl-punctuation))
+    "." :group 'lsp-faces)
+  (defface lsp-face-semhl-bracket
+    '((t :inherit lsp-face-semhl-punctuation))
+    "." :group 'lsp-faces)
+  (defface lsp-face-semhl-brace
+    '((t :inherit lsp-face-semhl-punctuation))
+    "." :group 'lsp-faces)
+  (defface lsp-face-semhl-angle
+    '((t :inherit lsp-face-semhl-punctuation))
+    "." :group 'lsp-faces)
+  (defface lsp-face-semhl-comma
+    '((t :inherit lsp-face-semhl-punctuation))
+    "." :group 'lsp-faces)
+  (defface lsp-face-semhl-colon
+    '((t :inherit lsp-face-semhl-punctuation))
+    "." :group 'lsp-faces)
+  (defface lsp-face-semhl-semicolon
+    '((t :inherit lsp-face-semhl-punctuation))
+    "." :group 'lsp-faces)
+  (defface lsp-face-semhl-dot
+    '((t :inherit lsp-face-semhl-punctuation))
+    "." :group 'lsp-faces)
+  (setq lsp-semantic-token-faces
+        (append lsp-semantic-token-faces
+                '(("method" . lsp-face-semhl-method)
+                  ("attribute" . lsp-face-semhl-attribute)
+                  ("boolean" . lsp-face-semhl-boolean)
+                  ("builtinType" . lsp-face-semhl-builtin-type)
+                  ("lifetime" . lsp-face-semhl-lifetime)
+                  ("selfKeyword" . lsp-face-semhl-keyword-self)
+                  ("typeAlias" . lsp-face-semhl-type-alias)
+                  ("union" . lsp-face-semhl-union)
+                  ("unresolvedReference" . lsp-face-semhl-unresolved-reference)
+                  ("formatSpecifier" . lsp-face-semhl-rust-format-specifier)
+                  ("punctuation" . lsp-face-semhl-punctuation)
+                  ("parenthesis" . lsp-face-semhl-parenthesis)
+                  ("bracket" . lsp-face-semhl-bracket)
+                  ("brace" . lsp-face-semhl-brace)
+                  ("angle" . lsp-face-semhl-angle)
+                  ("comma" . lsp-face-semhl-comma)
+                  ("colon" . lsp-face-semhl-colon)
+                  ("semicolon" . lsp-face-semhl-semicolon)
+                  ("dot" . lsp-face-semhl-dot))))
+  ;; enum looking different from struct looks weird
+  (face-spec-set 'lsp-face-semhl-enum '((t :inherit font-lock-type-face)))
+  (defface lsp-face-semhl-declaration
+    '((t)) "." :group 'lsp-faces)
+  (defface lsp-face-semhl-mutable
+    '((t :underline t)) "." :group 'lsp-faces)
+  (defface lsp-face-semhl-rust-attribute-element
+    '((t)) "." :group 'lsp-faces)
+  (defface lsp-face-semhl-rust-constant
+    '((t)) "." :group 'lsp-faces)
+  (defface lsp-face-semhl-control-flow
+    '((t)) "." :group 'lsp-faces)
+  (defface lsp-face-semhl-unsafe
+    '((t)) "." :group 'lsp-faces)
+  (defface lsp-face-semhl-consuming
+    '((t)) "." :group 'lsp-faces)
+  (defface lsp-face-semhl-callable
+    '((t)) "." :group 'lsp-faces)
+  (setq lsp-semantic-token-modifier-faces
+        '(("declaration" . lsp-face-semhl-declaration)
+          ("deprecated" . lsp-face-semhl-deprecated)
+          ("readonly" . lsp-face-semhl-constant)
+          ("mutable" . lsp-face-semhl-mutable)
+          ("attribute" . lsp-face-semhl-rust-attribute-element)
+          ("constant" . lsp-face-semhl-rust-constant)
+          ("controlFlow" . lsp-face-semhl-control-flow)
+          ("unsafe" . lsp-face-semhl-unsafe)
+          ("consuming" . lsp-face-semhl-consuming)
+          ("callable" . lsp-face-semhl-callable))))
 
 ;; HACK -- redefine this function since it's somehow broken when compiled?
 ;; (with-eval-after-load 'lsp-completion

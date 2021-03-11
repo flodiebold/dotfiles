@@ -2,6 +2,7 @@
 * TODO workman keybindings
 * DONE solarized
 * TODO better org display
+* TODO fix search
 * TODO keybindings & stuff
 ** M-x to SPC SPC?
 ** TODO SPC v?
@@ -16,6 +17,12 @@
 -> disabled by lsp module; instead use K to display docs
 would need to enable lsp-ui-doc-enable, plus set back lsp-ui-doc-max-height/width to reasonable values
 ** better keybindings for code actions
+** semantic highlighting
+*** TODO make mutable work
+*** TODO add other token types
+*** TODO make the theme nicer
+- don't use blue/orange for everything?
+- maybe don't give keywords that weird green either
 * Good stuff / keybindings
 ** Search: SPC s d
 ** Buffer search: SPC s s
@@ -26,3 +33,5 @@ would need to enable lsp-ui-doc-enable, plus set back lsp-ui-doc-max-height/widt
 ** comment line -> g c c
 ** switch to last buffer? -> SPC `
 ** show docs: K
+** switch window: SPC w p (evil-window-lru)
+** markers: m [char], ` [char]
