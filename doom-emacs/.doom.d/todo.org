@@ -1,8 +1,12 @@
 #+TITLE: DOOM Emacs TODO
 * TODO workman keybindings
+- maybe for window navigation
 * DONE solarized
-* TODO better org display
-* TODO fix search
+* DONE better org display
+* DONE fix search
+* TODO fix * behavior with uppercase
+* TODO add back M-e / M-n / M-o keys in org
+* TODO C-l should not count for evil-repeat
 * TODO keybindings & stuff
 ** M-x to SPC SPC?
 ** TODO SPC v?
@@ -18,9 +22,9 @@
 would need to enable lsp-ui-doc-enable, plus set back lsp-ui-doc-max-height/width to reasonable values
 ** better keybindings for code actions
 ** semantic highlighting
-*** TODO make mutable work
-*** TODO add other token types
-*** TODO make the theme nicer
+*** DONE make mutable work
+*** DONE add other token types
+*** DONE make the theme nicer
 - don't use blue/orange for everything?
 - maybe don't give keywords that weird green either
 * Good stuff / keybindings

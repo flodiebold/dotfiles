@@ -37,6 +37,9 @@
 
 ;; Global keys
 (setq doom-localleader-key ",")
+(after! evil-mode
+  (evil-declare-ignore-repeat 'recenter-top-bottom)
+  (evil-declare-ignore-repeat 'move-beginning-of-line))
 
 ;; Org config
 (setq org-directory "~/org/")
@@ -52,7 +55,7 @@
 (setq company-idle-delay 0.2)
 (setq lsp-file-watch-threshold 2000)
 
-(setq lsp-semantic-tokens-enable t)
+(setq lsp-semantic-tokens-enable nil)
 (setq lsp-semantic-tokens-apply-modifiers t)
 
 ;; Rust config
