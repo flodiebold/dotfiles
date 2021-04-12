@@ -87,3 +87,12 @@ if which zoxide > /dev/null 2> /dev/null; then
     alias zq="zoxide query"
     alias zr="zoxide remove"
 fi
+
+# nice `time` output
+TIMEFMT='%J   %U  user %S system %P cpu %*E total'$'\n'\
+'avg shared (code):         %X KB'$'\n'\
+'avg unshared (data/stack): %D KB'$'\n'\
+'total (sum):               %K KB'$'\n'\
+'max memory:                %M MB'$'\n'\
+'page faults from disk:     %F'$'\n'\
+'other page faults:         %R'
