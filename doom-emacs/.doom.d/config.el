@@ -65,6 +65,7 @@
 
 (setq lsp-semantic-tokens-enable nil)
 (setq lsp-semantic-tokens-apply-modifiers t)
+(setq lsp-auto-execute-action nil)
 
 ;; Rust config
 (setq lsp-rust-server 'rust-analyzer)
