@@ -9,6 +9,8 @@
 (setq user-full-name "Florian Diebold"
       user-mail-address "flodiebold@gmail.com")
 
+(setq uniquify-buffer-name-style 'forward)
+
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
 ;;
