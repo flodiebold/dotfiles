@@ -27,6 +27,10 @@ would need to enable lsp-ui-doc-enable, plus set back lsp-ui-doc-max-height/widt
 *** DONE make the theme nicer
 - don't use blue/orange for everything?
 - maybe don't give keywords that weird green either
+** better / persistent "find all references"?
+** better code navigation within file using file structure?
+https://rust-analyzer.github.io/manual.html#file-structure
+** better global error navigation?
 * Good stuff / keybindings
 ** Search: SPC s d
 ** Buffer search: SPC s s
