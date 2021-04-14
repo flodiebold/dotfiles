@@ -59,3 +59,5 @@
 
 (package! lsp-mode :pin "05a67f3ac558bd0c7cf36f5b8ece19da01410df5")
 ;; (unpin! lsp-mode)
+
+(package! yaml-mode)

@@ -37,9 +37,11 @@ https://rust-analyzer.github.io/manual.html#file-structure
 ** Evil exchange: g x
 ** Window management:
  - SPC w m m maximizes
+ - switch window: SPC w p (evil-window-lru)
 ** Bookmarks: SPC RET
 ** comment line -> g c c
 ** switch to last buffer? -> SPC `
 ** show docs: K
-** switch window: SPC w p (evil-window-lru)
+** go to type definition: SPC c t
 ** markers: m [char], ` [char]
+** open buffer for project search / edit: C-c C-o / C-c C-e

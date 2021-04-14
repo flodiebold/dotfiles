@@ -193,6 +193,10 @@
           ("consuming" . lsp-face-semhl-consuming)
           ("callable" . lsp-face-semhl-callable))))
 
+;; YAML
+(use-package! yaml-mode
+  :mode "\\.ya?ml\\'")
+
 ;; HACK -- redefine this function since it's somehow broken when compiled?
 ;; (with-eval-after-load 'lsp-completion
 ;;   (defun lsp-completion--looking-back-trigger-characterp (trigger-characters)
