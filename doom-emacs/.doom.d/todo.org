@@ -34,6 +34,7 @@ would need to enable lsp-ui-doc-enable, plus set back lsp-ui-doc-max-height/widt
 https://rust-analyzer.github.io/manual.html#file-structure
 ** better global error navigation?
 ** disable snippet completion
+** bind rust-analyzer-join-lines again
 * Good stuff / keybindings
 ** Search: SPC s d
 ** Buffer search: SPC s s
