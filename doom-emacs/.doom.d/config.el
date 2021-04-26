@@ -197,6 +197,12 @@
 (use-package! yaml-mode
   :mode "\\.ya?ml\\'")
 
+;; TabNine
+(use-package! company-tabnine
+  :after company
+  :config
+  (cl-pushnew 'company-tabnine (default-value 'company-backends)))
+
 ;; HACK -- redefine this function since it's somehow broken when compiled?
 ;; (with-eval-after-load 'lsp-completion
 ;;   (defun lsp-completion--looking-back-trigger-characterp (trigger-characters)

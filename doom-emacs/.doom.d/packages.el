@@ -61,3 +61,5 @@
 ;; (unpin! lsp-mode)
 
 (package! yaml-mode)
+
+(package! company-tabnine)
