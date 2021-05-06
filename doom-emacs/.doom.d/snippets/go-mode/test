@@ -1,0 +1,21 @@
+# -*- mode: snippet -*-
+# name: test
+# key:
+# --
+func TestFindIdentifier(t *testing.T) {
+for _, tc := range []struct {
+name        string
+}{
+{
+name: "",
+},
+}{
+t.Run(tc.name, func(t *testing.T) {
+// given
+
+// when
+
+// then
+})
+}
+}

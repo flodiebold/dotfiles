@@ -1,0 +1,10 @@
+# key: 
+# name: sliceToJson
+# --
+func ${1:$(s-lower-camel-case yas-text)}sToJson(x []*fhir.FHIR$1) []*$1 {
+res := make([]*$1, len(x))
+for i, xx := range x {
+res[i] = ${1:$(s-lower-camel-case yas-text)}ToJson(xx)
+}
+return res
+}

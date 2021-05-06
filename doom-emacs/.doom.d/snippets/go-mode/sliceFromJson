@@ -1,0 +1,10 @@
+# key: 
+# name: sliceFromJson
+# --
+func ${1:$(s-lower-camel-case yas-text)}sFromJson(x []*$1) []*fhir.FHIR$1 {
+res := make([]*fhir.FHIR$1, len(x))
+for i, xx := range x {
+res[i] = ${1:$(s-lower-camel-case yas-text)}FromJson(xx)
+}
+return res
+}

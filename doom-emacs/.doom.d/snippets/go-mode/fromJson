@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: fromJson
+# key:
+# --
+func ${1:$(s-lower-camel-case yas-text)}FromJson(x *$1) *fhir.FHIR$1 {
+return &fhir.FHIR$1{
+$0
+}
+}
