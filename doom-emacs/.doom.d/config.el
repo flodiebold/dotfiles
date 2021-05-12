@@ -201,19 +201,6 @@
 (use-package! protobuf-mode
   :mode "\\.proto\\'")
 
-;; HACK -- redefine this function since it's somehow broken when compiled?
-;; (with-eval-after-load 'lsp-completion
-;;   (defun lsp-completion--looking-back-trigger-characterp (trigger-characters)
-;;     "Return trigger character if text before point match any of the TRIGGER-CHARACTERS."
-;;     (unless (= (point) (point-at-bol))
-;;       (seq-some
-;;        (lambda (trigger-char)
-;;          (and (equal (buffer-substring-no-properties (- (point) (length trigger-char)) (point))
-;;                      trigger-char)
-;;               trigger-char))
-;;        trigger-characters))))
-;; currently deleting the eln file in .emacs.d/.local/cache/eln fixed it
-
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
