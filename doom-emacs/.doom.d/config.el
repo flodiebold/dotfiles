@@ -53,6 +53,7 @@
 
 ;; Org config
 (setq org-directory "~/org/")
+(setq org-roam-directory "~/org/roam")
 ;; (setq org-startup-indented nil) ;; don't indent stuff -- this doesn't seem to work, and I've gotten used to the indented mode
 
 ;; line numbers
