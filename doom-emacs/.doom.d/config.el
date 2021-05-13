@@ -70,6 +70,10 @@
 (setq lsp-semantic-tokens-apply-modifiers t)
 (setq lsp-auto-execute-action nil)
 
+;;; remove yasnippet from company backends for LSP buffers. I don't want a bunch
+;;; of snippets being suggested all the time
+(setq +lsp-company-backends 'company-capf)
+
 ;; Rust config
 (setq lsp-rust-server 'rust-analyzer)
 (setq rustic-lsp-server 'rust-analyzer)
