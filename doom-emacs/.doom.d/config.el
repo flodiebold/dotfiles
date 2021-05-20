@@ -47,9 +47,10 @@
 
 ;; Global keys
 (setq doom-localleader-key ",")
-(after! evil-mode
+(after! evil
   (evil-declare-ignore-repeat 'recenter-top-bottom)
-  (evil-declare-ignore-repeat 'move-beginning-of-line))
+  (evil-declare-ignore-repeat 'move-beginning-of-line)
+  (evil-declare-ignore-repeat 'doom/backward-to-bol-or-indent))
 
 ;; Org config
 (setq org-directory "~/org/")
@@ -58,6 +59,10 @@
 
 ;; line numbers
 (setq display-line-numbers-type 'relative)
+
+;; disable visual-line-mode -- Doom enables this by default, but I find it super
+;; annoying and it doesn't work very well with evil editing functions
+(remove-hook 'text-mode-hook #'visual-line-mode)
 
 ;; General LSP stuff
 (setq lsp-ui-sideline-enable nil)
