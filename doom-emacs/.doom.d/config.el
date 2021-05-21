@@ -64,6 +64,9 @@
 ;; annoying and it doesn't work very well with evil editing functions
 (remove-hook 'text-mode-hook #'visual-line-mode)
 
+;; hscroll by centering cursor instead of tiny steps
+(setq hscroll-step 0)
+
 ;; General LSP stuff
 (setq lsp-ui-sideline-enable nil)
 ;; (setq evil-goto-definition-functions '(evil-goto-definition-xref))
