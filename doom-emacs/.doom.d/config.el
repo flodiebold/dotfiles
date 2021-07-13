@@ -84,19 +84,21 @@
 
 ;; Rust config
 (setq lsp-rust-server 'rust-analyzer)
-(setq rustic-lsp-server 'rust-analyzer)
 (setenv "RUST_SRC_PATH") ;; just to make sure this isn't set
-(setq lsp-rust-analyzer-server-command '("env"))
-(setq rustic-analyzer-command '("env"))
-(setq lsp-rust-analyzer-server-args '("RA_LOG=error,rust_analyzer::config" "RA_PROFILE=*>400" "RUST_BACKTRACE=1" "rust-analyzer"))
+(setq lsp-rust-analyzer-server-command '("env" "RA_LOG=error,rust_analyzer::config" "RA_PROFILE=*>400" "RUST_BACKTRACE=1" "rust-analyzer"))
 (setq lsp-rust-analyzer-completion-add-call-argument-snippets nil)
 (setq lsp-rust-analyzer-call-info-full nil)
 (setq lsp-rust-analyzer-server-display-inlay-hints t)
 (setq lsp-rust-analyzer-display-chaining-hints t)
 (setq lsp-rust-analyzer-display-parameter-hints t)
 (setq lsp-rust-analyzer-proc-macro-enable t)
-(setq lsp-rust-analyzer-cargo-load-out-dirs-from-check t)
+(setq lsp-rust-analyzer-cargo-run-build-scripts t)
 (setq lsp-rust-analyzer-max-inlay-hint-length 20)
+
+(defadvice! lsp-rust-analyzer-additional-options (fun)
+  :around 'lsp-rust-analyzer--make-init-options
+  (let ((opts (funcall fun)))
+    (append opts '(:experimental (:procAttrMacros t)))))
 
 ;; LSP semantic highlighting fixes / theme improvements
 ;; add missing method token type

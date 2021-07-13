@@ -35,6 +35,8 @@ https://rust-analyzer.github.io/manual.html#file-structure
 ** better global error navigation?
 ** disable snippet completion
 ** bind rust-analyzer-join-lines again
+** fix completion inserting closing parents for some reason
+* TODO fix goto definition not switching buffer anymore
 * Good stuff / keybindings
 ** Search: SPC s d
 ** Buffer search: SPC s s
