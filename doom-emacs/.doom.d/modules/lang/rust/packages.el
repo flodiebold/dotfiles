@@ -2,3 +2,6 @@
 ;;; lang/rust/packages.el
 
 (package! rust-mode :pin "494d59f92cbe12533eb89b202fc4f5342afcd543")
+
+(package! tree-sitter)
+(package! tree-sitter-langs)
