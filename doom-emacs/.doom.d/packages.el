@@ -61,3 +61,4 @@
 ;; (unpin! lsp-mode)
 
 (package! yaml-mode)
+(package! adoc-mode)
