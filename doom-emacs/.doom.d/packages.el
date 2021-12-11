@@ -60,5 +60,9 @@
 (package! lsp-mode :pin "8e9704f5b93db87d13d8e93f89ed779a4d320292")
 ;; (unpin! lsp-mode)
 
+
 (package! yaml-mode)
 (package! adoc-mode)
+(package! wgsl-mode
+  :recipe (:host github :repo "acowley/wgsl-mode"
+           :files ("wgsl-mode.el")))

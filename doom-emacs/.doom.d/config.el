@@ -223,6 +223,10 @@
 (use-package! adoc-mode
   :mode "\\.adoc\\'")
 
+;; WGSL
+(use-package! wgsl-mode
+  :mode "\\.wgsl\\'")
+
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
