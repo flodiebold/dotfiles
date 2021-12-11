@@ -82,6 +82,9 @@
 ;;; of snippets being suggested all the time
 (setq +lsp-company-backends 'company-capf)
 
+(after! smartparens
+  (ad-disable-advice 'company--insert-candidate 'after 'sp-company--insert-candidate))
+
 ;; Rust config
 (setq lsp-rust-server 'rust-analyzer)
 (setenv "RUST_SRC_PATH") ;; just to make sure this isn't set
