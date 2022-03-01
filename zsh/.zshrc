@@ -32,12 +32,11 @@ setopt nolistbeep
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git lein mercurial screen dnf pass cargo docker)
+plugins=(git dnf pass rust emacs zoxide)
 
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-alias ppass='PASSWORD_STORE_DIR=~/.password-store-privat pass'
 
 if [ -f ~/.local/google-cloud-sdk/completion.zsh.inc ]; then
     source ~/.local/google-cloud-sdk/completion.zsh.inc
@@ -57,35 +56,6 @@ gpgconf --launch gpg-agent
 if which exa > /dev/null 2> /dev/null; then
     alias ls=exa
     alias tree="exa --tree"
-fi
-
-# zoxide (https://github.com/ajeetdsouza/zoxide)
-if which zoxide > /dev/null 2> /dev/null; then
-    _zoxide_precmd() {
-        zoxide add
-    }
-
-    precmd_functions+=_zoxide_precmd
-
-    z() {
-        if [ $# -ne 0 ]; then
-            _Z_RESULT=$(zoxide query "$@")
-            case $_Z_RESULT in
-                "query: "*)
-                    cd "${_Z_RESULT:7}"
-                    ;;
-                *)
-                    echo "${_Z_RESULT}"
-                    ;;
-            esac
-        fi
-    }
-
-    alias zi="z -i"
-
-    alias za="zoxide add"
-    alias zq="zoxide query"
-    alias zr="zoxide remove"
 fi
 
 # nice `time` output
