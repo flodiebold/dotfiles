@@ -4,7 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector
-   ["#5a5475" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#657b83"])
+   ["#073642" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#657b83"])
  '(compilation-message-face 'default)
  '(cua-global-mark-cursor-color "#2aa198")
  '(cua-normal-cursor-color "#839496")
@@ -37,7 +37,11 @@
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1")
  '(safe-local-variable-values
-   '((lsp--override-calculate-lisp-indent\? . t)
+   '((rust-format-on-save . t)
+     (projectile-project-run-cmd . "CARGO_INCREMENTAL=1 cargo run")
+     (projectile-project-test-cmd . "CARGO_INCREMENTAL=1 cargo test")
+     (projectile-project-compilation-cmd . "CARGO_INCREMENTAL=1 cargo build")
+     (lsp--override-calculate-lisp-indent\? . t)
      (flycheck-disabled-checkers quote
                                  (emacs-lisp-checkdoc))
      (eval progn

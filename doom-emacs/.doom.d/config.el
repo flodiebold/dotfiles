@@ -37,14 +37,6 @@
       evil-insert-state-cursor '(bar "medium sea green")
       evil-visual-state-cursor '(hollow "orange"))
 
-;; After splitting windows, prompt to switch buffer
-(setq evil-vsplit-window-right t
-      evil-split-window-below t)
-(defadvice! prompt-for-buffer (&rest _)
-  :after '(evil-window-split evil-window-vsplit)
-  (+ivy/switch-buffer))
-(setq +ivy-buffer-preview t)
-
 ;; Global keys
 (setq doom-localleader-key ",")
 (after! evil
@@ -77,6 +69,7 @@
 (setq lsp-semantic-tokens-enable nil)
 (setq lsp-semantic-tokens-apply-modifiers t)
 (setq lsp-auto-execute-action nil)
+(setq lsp-enable-on-type-formatting t)
 
 ;;; remove yasnippet from company backends for LSP buffers. I don't want a bunch
 ;;; of snippets being suggested all the time
