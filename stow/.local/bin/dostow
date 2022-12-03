@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-stow -v -d ~/Projekte/dotfiles/ -t ~/ -S "$@"
+stow -v -d ~/Projekte/privat/dotfiles/ -t ~/ -S "$@"
