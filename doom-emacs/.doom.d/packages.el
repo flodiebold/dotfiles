@@ -57,7 +57,7 @@
 (package! evil-cleverparens)
 
 
-(package! lsp-mode :pin "8e9704f5b93db87d13d8e93f89ed779a4d320292")
+(package! lsp-mode :pin "4aafe25e03ab7470b8d3c1cb326affa3c5e9930e")
 ;; (unpin! lsp-mode)
 
 
