@@ -34,13 +34,20 @@ would need to enable lsp-ui-doc-enable, plus set back lsp-ui-doc-max-height/widt
 https://rust-analyzer.github.io/manual.html#file-structure
 ** better global error navigation?
 ** disable snippet completion
-** bind rust-analyzer-join-lines again
+** DONE bind rust-analyzer-join-lines again
 ** TODO fix completion inserting closing parens for some reason
 ** TODO fix flyimport completions sometimes not applying their change
+** TODO add combobulate?
 * TODO fix goto definition not switching buffer anymore
 * TODO remove/uninstall rust-cargo flycheck checker?
+* TODO fix uniquify-buffer-name-style not being set / being overriden
+* TODO adapt avy keybindings for workman
+g s j, g s k
+* TODO change avy characters to workman homerow
+* TODO bind sp-unwrap-sexp somewhere
+* TODO enable magit-todo-mode
 * Good stuff / keybindings
-** Search: SPC s d
+** Search: SPC s d, SPC /
 ** Buffer search: SPC s s
 ** Evil exchange: g x
 ** Window management:
