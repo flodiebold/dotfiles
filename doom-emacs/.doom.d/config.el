@@ -9,7 +9,8 @@
 (setq user-full-name "Florian Diebold"
       user-mail-address "flodiebold@gmail.com")
 
-(setq uniquify-buffer-name-style 'forward)
+;; uniquify does not work in doom emacs, https://github.com/doomemacs/doomemacs/issues/4179
+;; (setq uniquify-buffer-name-style 'forward)
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:

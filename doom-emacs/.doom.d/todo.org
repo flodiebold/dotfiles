@@ -4,7 +4,8 @@
 * DONE solarized
 * DONE better org display
 * DONE fix search
-* TODO fix * behavior with uppercase
+* DONE fix * behavior with uppercase
+just use j after first * press
 * TODO add back M-e / M-n / M-o keys in org
 * TODO C-l should not count for evil-repeat
 * TODO fix snippets
@@ -38,7 +39,7 @@ https://rust-analyzer.github.io/manual.html#file-structure
 ** TODO fix completion inserting closing parens for some reason
 ** TODO fix flyimport completions sometimes not applying their change
 ** TODO add combobulate?
-* TODO fix goto definition not switching buffer anymore
+* DONE fix goto definition not switching buffer anymore
 * TODO remove/uninstall rust-cargo flycheck checker?
 * TODO fix uniquify-buffer-name-style not being set / being overriden
 * TODO adapt avy keybindings for workman
