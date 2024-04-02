@@ -47,6 +47,7 @@ g s j, g s k
 * TODO change avy characters to workman homerow
 * TODO bind sp-unwrap-sexp somewhere
 * TODO enable magit-todo-mode
+- set magit-todos-branch-list-merge-base-ref correctly to main/master
 * Good stuff / keybindings
 ** Search: SPC s d, SPC /
 ** Buffer search: SPC s s

@@ -84,7 +84,7 @@
 (setenv "RUST_SRC_PATH") ;; just to make sure this isn't set
 (setq lsp-rust-analyzer-server-command '("env"
                                          "RA_LOG=error,rust_analyzer::config=info,project_model=info"
-                                         ;; "RA_PROFILE=*>400"
+                                         "RA_PROFILE=*>400"
                                          "RUST_BACKTRACE=1"
                                          "rust-analyzer"))
 (setq lsp-rust-analyzer-completion-add-call-argument-snippets nil)
@@ -218,6 +218,56 @@
 ;; WGSL
 (use-package! wgsl-mode
   :mode "\\.wgsl\\'")
+
+;; Treesitter / Combobulate
+(use-package! treesit
+  :mode (("\\.tsx\\'" . tsx-ts-mode))
+  :preface
+  (defun mp-setup-install-grammars ()
+    "Install Tree-sitter grammars if they are absent."
+    (interactive)
+    (dolist (grammar
+              '((css . ("https://github.com/tree-sitter/tree-sitter-css" "v0.20.0"))
+                (html . ("https://github.com/tree-sitter/tree-sitter-html" "v0.20.1"))
+                (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" "v0.20.1" "src"))
+                (json . ("https://github.com/tree-sitter/tree-sitter-json" "v0.20.2"))
+                (python . ("https://github.com/tree-sitter/tree-sitter-python" "v0.20.4"))
+                (toml "https://github.com/tree-sitter/tree-sitter-toml")
+                (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "tsx/src"))
+                (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "typescript/src"))
+                (yaml . ("https://github.com/ikatyang/tree-sitter-yaml" "v0.5.0"))))
+      (add-to-list 'treesit-language-source-alist grammar)
+      ;; Only install `grammar' if we don't already have it
+      ;; installed. However, if you want to *update* a grammar then
+      ;; this obviously prevents that from happening.
+      (unless (treesit-language-available-p (car grammar))
+        (treesit-install-language-grammar (car grammar)))))
+  (dolist (mapping
+         '((python-mode . python-ts-mode)
+           (css-mode . css-ts-mode)
+           (typescript-mode . typescript-ts-mode)
+           (js2-mode . js-ts-mode)
+           (bash-mode . bash-ts-mode)
+           (css-mode . css-ts-mode)
+           (json-mode . json-ts-mode)
+           (js-json-mode . json-ts-mode)
+           (rust-mode . rust-ts-mode)))
+    (add-to-list 'major-mode-remap-alist mapping))
+  :config
+  (mp-setup-install-grammars)
+  )
+
+(use-package! combobulate
+  :hook
+  ((python-ts-mode . combobulate-mode)
+   (js-ts-mode . combobulate-mode)
+   (html-ts-mode . combobulate-mode)
+   (css-ts-mode . combobulate-mode)
+   (yaml-ts-mode . combobulate-mode)
+   (typescript-ts-mode . combobulate-mode)
+   (json-ts-mode . combobulate-mode)
+   (tsx-ts-mode . combobulate-mode))
+  )
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;

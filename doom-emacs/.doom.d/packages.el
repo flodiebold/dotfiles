@@ -60,9 +60,16 @@
 (package! lsp-mode :pin "5b25727f6939493509374704e7545887c83b9bc6")
 ;; (unpin! lsp-mode)
 
+(unpin! transient)
+(unpin! magit)
 
 (package! yaml-mode)
 (package! adoc-mode)
 (package! wgsl-mode
   :recipe (:host github :repo "acowley/wgsl-mode"
            :files ("wgsl-mode.el")))
+(package! combobulate
+  :recipe (:host github :repo "mickeynp/combobulate"))
+
+(package! with-editor
+  :recipe (:host github :repo "magit/with-editor" :branch "main"))

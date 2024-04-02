@@ -35,14 +35,14 @@ font pango:monospace 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec "systemd-run --user --scope alacritty"
 
 # kill focused window
 bindsym $mod+Shift+q kill
 
-bindsym $mod+r exec --no-startup-id "rofi -show drun -modi drun,run -theme solarized_alternate"
-bindsym $mod+g exec --no-startup-id "rofi -show window -modi window -theme solarized_alternate"
-bindsym $mod+p exec --no-startup-id "rofi-pass"
+bindsym $mod+r exec --no-startup-id "systemd-run --user --scope rofi -show drun -modi drun,run -theme solarized_alternate"
+bindsym $mod+g exec --no-startup-id "systemd-run --user --scope rofi -show window -modi window -theme solarized_alternate"
+# bindsym $mod+p exec --no-startup-id "rofi-pass"
 
 # change focus
 bindsym $mod+y focus left
@@ -239,3 +239,6 @@ client.urgent           #073642 #dc322f #fdf6e3 #002b36   #073642
 # client.unfocused        #fdf6e3 #fdf6e3 #657b83 #073642
 # client.urgent           #dc322f #fdf6e3 #dc322f #002b36
 
+
+for_window [class="firefox" window_role="alert"] floating enable
+no_focus [window_role="alert"]
