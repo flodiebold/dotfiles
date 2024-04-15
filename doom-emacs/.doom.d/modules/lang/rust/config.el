@@ -3,6 +3,10 @@
 (after! projectile
   (add-to-list 'projectile-project-root-files "Cargo.toml"))
 
+(after! combobulate
+  (load! "combobulate-rust")
+  (add-to-list 'combobulate-setup-functions-alist '(rust . combobulate-rust-setup)))
+
 ;; work around bug with disabled optional libraries
 (defun rust-before-save-hook ())
 (defun rust-after-save-hook ())
@@ -75,7 +79,7 @@
   (setq rust-load-optional-libraries nil)
   :config
   (add-hook 'rust-mode-hook #'lsp!)
-  (add-hook 'rust-mode-hook #'enable-tree-sitter)
+  ;; (add-hook 'rust-mode-hook #'enable-tree-sitter)
   ;; (add-hook 'rust-mode-hook #'rust-mode-setup-prettify-symbols)
   (define-key rust-mode-map [remap evil-join] 'lsp-rust-analyzer-join-lines)
   (map! :map rust-mode-map

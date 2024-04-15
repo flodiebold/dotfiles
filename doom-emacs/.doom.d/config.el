@@ -235,6 +235,7 @@
                 (toml "https://github.com/tree-sitter/tree-sitter-toml")
                 (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "tsx/src"))
                 (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "typescript/src"))
+                (rust . ("https://github.com/tree-sitter/tree-sitter-rust" "v0.20.4" "src"))
                 (yaml . ("https://github.com/ikatyang/tree-sitter-yaml" "v0.5.0"))))
       (add-to-list 'treesit-language-source-alist grammar)
       ;; Only install `grammar' if we don't already have it
@@ -266,8 +267,8 @@
    (yaml-ts-mode . combobulate-mode)
    (typescript-ts-mode . combobulate-mode)
    (json-ts-mode . combobulate-mode)
-   (tsx-ts-mode . combobulate-mode))
-  )
+   (tsx-ts-mode . combobulate-mode)
+   (rust-ts-mode . combobulate-mode)))
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
