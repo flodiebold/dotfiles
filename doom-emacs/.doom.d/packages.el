@@ -57,7 +57,7 @@
 (package! evil-cleverparens)
 
 
-(package! lsp-mode :pin "5b25727f6939493509374704e7545887c83b9bc6")
+;; (package! lsp-mode :pin "5b25727f6939493509374704e7545887c83b9bc6")
 ;; (unpin! lsp-mode)
 
 (unpin! transient)
@@ -71,5 +71,5 @@
 (package! combobulate
   :recipe (:host github :repo "mickeynp/combobulate"))
 
-(package! with-editor
-  :recipe (:host github :repo "magit/with-editor" :branch "main"))
+;; (package! with-editor
+;;   :recipe (:host github :repo "magit/with-editor" :branch "main"))
