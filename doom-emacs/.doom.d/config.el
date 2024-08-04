@@ -258,6 +258,11 @@
   (mp-setup-install-grammars)
   )
 
+(use-package! lsp-mode
+  :hook ((rust-ts-mode . lsp-deferred)
+         (typescript-ts-mode . lsp-deferred)
+         (tsx-ts-mode . lsp-deferred)))
+
 (use-package! combobulate
   :hook
   ((python-ts-mode . combobulate-mode)
