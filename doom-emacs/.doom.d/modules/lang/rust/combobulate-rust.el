@@ -199,6 +199,63 @@
 
   (setq combobulate-navigation-logical-procedures '((:activation-nodes ((:nodes (all)))))))
 
+(eval-and-compile
+  (defvar combobulate-rust-definitions
+    '((envelope-procedure-shorthand-alist
+       '())
+      (envelope-list
+       '((:description
+           "( ... )"
+           :key "("
+           :extra-key "M-("
+           :mark-node t
+           :nodes ,(append
+                    (combobulate-production-rules-get "primary_expression")
+                    (combobulate-production-rules-get "expression"))
+           :name "wrap-parentheses"
+           :template (@ "(" r ")"))))
+      (context-nodes
+       '("identifier" "type_identifier" "primitive_type" "field_identifier" "string_literal" "char_literal" "raw_string_literal"
+          "integer_literal" "float_literal"))
+      (indent-after-edit t)
+      (envelope-indent-region-function #'indent-region)
+      (procedures-edit nil)
+      (pretty-print-node-name-function #'combobulate-rust-pretty-print-node-name)
+      (procedures-sexp nil)
+      (plausible-separators '(";" ","))
+      (procedures-defun
+       '((:activation-nodes ((:nodes ("struct_item"
+                                      "enum_item"
+                                      "union_item"
+                                      "function_item"
+                                      "const_item"
+                                      "static_item"
+                                      "trait_item"
+                                      "mod_item"
+                                      "macro_definition"
+                                      "inner_attribute_item"
+                                      "function_signature_item"
+                                      "foreign_mod_item"
+                                      "extern_crate_declaration"
+                                      "associated_type"
+                                      "type_item"
+                                      ;; "impl_item" ?
+                                      ))))))
+      (procedures-logical
+       '((:activation-nodes ((:nodes (all))))))
+      (procedures-sibling
+       `())
+      (procedures-hierarchy
+       `()))))
+
+(define-combobulate-language
+ :name rust
+ :language rust
+ :major-modes (rust-mode rust-ts-mode)
+ :custom combobulate-rust-definitions
+ :setup-fn combobulate-rust-setup)
+
+(defun combobulate-rust-setup (_))
 
 (provide 'combobulate-rust)
 ;;; combobulate-rust.el ends here
