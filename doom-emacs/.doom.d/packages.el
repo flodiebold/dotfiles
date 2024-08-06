@@ -69,7 +69,7 @@
   :recipe (:host github :repo "acowley/wgsl-mode"
            :files ("wgsl-mode.el")))
 (package! combobulate
-  :recipe (:host github :repo "mickeynp/combobulate"))
+  :recipe (:host github :repo "mickeynp/combobulate" :branch "development"))
 
 ;; (package! with-editor
 ;;   :recipe (:host github :repo "magit/with-editor" :branch "main"))

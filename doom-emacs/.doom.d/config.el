@@ -250,6 +250,7 @@
            (typescript-mode . typescript-ts-mode)
            (js2-mode . js-ts-mode)
            (bash-mode . bash-ts-mode)
+           (conf-toml-mode . toml-ts-mode)
            (css-mode . css-ts-mode)
            (json-mode . json-ts-mode)
            (js-json-mode . json-ts-mode)
@@ -265,16 +266,11 @@
          (tsx-ts-mode . lsp-deferred)))
 
 (use-package! combobulate
+  :autoload (combobulate-setup combobulate-mode)
+  :custom
+  (combobulate-key-prefix "C-c o")
   :hook
-  ((python-ts-mode . combobulate-mode)
-   (js-ts-mode . combobulate-mode)
-   (html-ts-mode . combobulate-mode)
-   (css-ts-mode . combobulate-mode)
-   (yaml-ts-mode . combobulate-mode)
-   (typescript-ts-mode . combobulate-mode)
-   (json-ts-mode . combobulate-mode)
-   (tsx-ts-mode . combobulate-mode)
-   (rust-ts-mode . combobulate-mode)))
+  ((prog-mode . combobulate-mode)))
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
