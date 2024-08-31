@@ -94,6 +94,7 @@
 (setq lsp-rust-analyzer-display-parameter-hints t)
 (setq lsp-rust-analyzer-max-inlay-hint-length 20)
 (setq lsp-rust-analyzer-diagnostics-enable-experimental t)
+(setq lsp-rust-analyzer-cargo-watch-enable nil)
 
 ;; LSP semantic highlighting fixes / theme improvements
 ;; add missing method token type
