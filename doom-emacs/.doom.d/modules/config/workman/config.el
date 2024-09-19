@@ -42,6 +42,8 @@
     "n" nil
     "e" nil
     "o" nil)
+  (evil-define-key '(normal visual) magit-blame-read-only-mode-map
+    "n" nil)
   (define-key magit-mode-map "y" nil)
   (define-key magit-mode-map "n" nil)
   (define-key magit-mode-map "e" nil)
