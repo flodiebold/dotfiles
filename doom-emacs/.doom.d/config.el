@@ -269,6 +269,7 @@
   :autoload (combobulate-setup combobulate-mode)
   :custom
   (combobulate-key-prefix "C-c o")
+  :load-path "/home/florian/Projekte/opensource/combobulate"
   :hook
   ((prog-mode . combobulate-mode)))
 
