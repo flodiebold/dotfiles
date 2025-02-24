@@ -21,7 +21,7 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :name "Input"
+(setq doom-font (font-spec :name "Input Mono"
                            :size 23
                            :weight 'normal
                            :width 'normal

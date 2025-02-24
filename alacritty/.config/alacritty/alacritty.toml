@@ -44,7 +44,7 @@ size = 13.0
 # use_thin_strokes = true
 
 [font.bold]
-family = "Input"
+family = "Input Mono"
 style = "Bold"
 
 [font.glyph_offset]
@@ -52,11 +52,11 @@ x = 0
 y = 0
 
 [font.italic]
-family = "Input"
+family = "Input Mono"
 style = "Italic"
 
 [font.normal]
-family = "Input"
+family = "Input Mono"
 
 [font.offset]
 x = 0
