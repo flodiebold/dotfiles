@@ -183,6 +183,7 @@ bindsym --release Shift+Print exec --no-startup-id scrot --select -e 'mv $f ~/Bi
 bindsym --release $mod+l mode "lock"
 mode "lock" {
     bindsym s exec systemctl suspend; mode "default"
+    bindsym h exec systemctl hibernate; mode "default"
     bindsym l exec xset dpms force off; mode "default"
     bindsym Escape mode "default"
 }
