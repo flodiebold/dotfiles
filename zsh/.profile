@@ -6,6 +6,8 @@ export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
 export BROWSER=/usr/bin/google-chrome
 
+export EDITOR=emacsclient
+
 export GO111MODULE=on
 
 . "$HOME/.cargo/env"
