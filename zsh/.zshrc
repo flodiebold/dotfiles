@@ -58,6 +58,8 @@ if which exa > /dev/null 2> /dev/null; then
     alias tree="exa --tree"
 fi
 
+unalias gg # don't shadow the jj gui `gg` by the alias
+
 # nice `time` output
 TIMEFMT='%J   %U  user %S system %P cpu %*E total'$'\n'\
 'avg shared (code):         %X KB'$'\n'\
