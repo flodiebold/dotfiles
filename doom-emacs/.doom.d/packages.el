@@ -60,8 +60,8 @@
 ;; (package! lsp-mode :pin "5b25727f6939493509374704e7545887c83b9bc6")
 ;; (unpin! lsp-mode)
 
-(unpin! transient)
-(unpin! magit)
+;; (unpin! transient)
+;; (unpin! magit)
 
 (package! yaml-mode)
 (package! adoc-mode)
@@ -70,6 +70,10 @@
            :files ("wgsl-mode.el")))
 ;(package! combobulate
 ;  :recipe (:host github :repo "mickeynp/combobulate"))
+
+;; doesn't work
+;; (package! jujutsu
+;;   :recipe (:host github :repo "bennyandresen/jujutsu.el"))
 
 ;; (package! with-editor
 ;;   :recipe (:host github :repo "magit/with-editor" :branch "main"))
