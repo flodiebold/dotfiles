@@ -280,6 +280,20 @@
 ;; (use-package! jujutsu
 ;;   :commands (jujutsu-status))
 
+(defun bacon-jump (arg)
+  "Jump to bacon error location."
+  (interactive "p")
+  (when-let ((dir (locate-dominating-file (buffer-file-name) ".bacon-locations")))
+    (find-file-literally (expand-file-name ".bacon-locations" dir))
+    (revert-buffer)
+    (compilation-mode)
+    (setq-local compilation-error-regexp-alist '(("^\\(error\\|warning\\) \\([^:]*\\):\\([0-9]+\\):\\([0-9]+\\).*$" 2 3 4 1)))
+    (goto-char (point-min))
+    (forward-line (1- arg))
+    (compile-goto-error)))
+
+(map! :leader :n "c b" #'bacon-jump)
+
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
