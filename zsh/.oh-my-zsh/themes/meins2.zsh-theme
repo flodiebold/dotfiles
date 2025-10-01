@@ -67,6 +67,19 @@ bureau_git_prompt () {
   echo $_result
 }
 
+my_jj_prompt() {
+  local _change=$(jj_prompt_template 'self.change_id().shortest(3)')
+  local _result=""
+  _result="$ZSH_THEME_GIT_PROMPT_PREFIX$_change"
+  _result="$_result$ZSH_THEME_GIT_PROMPT_SUFFIX"
+  echo $_result
+}
+
+my_vcs_info() {
+  my_jj_prompt \
+  || bureau_git_prompt
+}
+
 
 _PATH="%{$fg_bold[white]%}%~%{$reset_color%}"
 
@@ -107,7 +120,7 @@ bureau_precmd () {
 
 setopt prompt_subst
 PROMPT='> $_LIBERTY '
-RPROMPT='$(nvm_prompt_info) $(bureau_git_prompt)'
+RPROMPT='$(nvm_prompt_info) $(my_vcs_info)'
 
 autoload -U add-zsh-hook
 add-zsh-hook precmd bureau_precmd
