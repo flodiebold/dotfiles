@@ -1,0 +1,6 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Type=Application
+Name=Obsidian
+Exec=/home/florian/.local/bin/Obsidian %U
+MimeType=x-scheme-handler/obsidian;
