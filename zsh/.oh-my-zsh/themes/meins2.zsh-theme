@@ -68,9 +68,13 @@ bureau_git_prompt () {
 }
 
 my_jj_prompt() {
-  local _change=$(jj_prompt_template 'self.change_id().shortest(3)')
+  local _change=$(jj_prompt_template 'self.change_id().shortest()')
+  local _desc=$(jj_prompt_template 'truncate_end(20, self.description(), "…")')
   local _result=""
   _result="$ZSH_THEME_GIT_PROMPT_PREFIX$_change"
+  if [[ "${_desc}x" != "x" ]]; then
+    _result="$_result%{$reset_color%}: $_desc"
+  fi
   _result="$_result$ZSH_THEME_GIT_PROMPT_SUFFIX"
   echo $_result
 }
