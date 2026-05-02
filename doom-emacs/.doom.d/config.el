@@ -262,7 +262,8 @@
 (use-package! lsp-mode
   :hook ((rust-ts-mode . lsp-deferred)
          (typescript-ts-mode . lsp-deferred)
-         (tsx-ts-mode . lsp-deferred)))
+         (tsx-ts-mode . lsp-deferred)
+         (astro-ts-mode . lsp-deferred)))
 
 ;; (use-package! combobulate
 ;;   :hook
@@ -293,6 +294,17 @@
     (compile-goto-error)))
 
 (map! :leader :n "c b" #'bacon-jump)
+
+(use-package! astro-ts-mode
+  :after treesit-auto
+  :mode (("\\.astro\\'" . astro-ts-mode))
+  :init
+  (when (modulep! +lsp)
+    (add-hook 'astro-ts-mode-hook #'lsp! 'append)))
+
+;; (add-to-list 'treesit-language-source-alist '(astro "https://github.com/virchau13/tree-sitter-astro"))
+;; (add-to-list 'treesit-language-source-alist '(css "https://github.com/tree-sitter/tree-sitter-css"))
+;; (add-to-list 'treesit-language-source-alist '(tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src"))
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;

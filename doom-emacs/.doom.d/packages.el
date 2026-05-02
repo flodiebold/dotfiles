@@ -77,3 +77,7 @@
 
 ;; (package! with-editor
 ;;   :recipe (:host github :repo "magit/with-editor" :branch "main"))
+;;
+
+
+(package! astro-ts-mode)
