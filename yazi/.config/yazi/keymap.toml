@@ -1,0 +1,88 @@
+# TODO ADOPT INTO STOW
+[mgr]
+prepend_keymap = [
+
+	# Hopping
+	{ on = "e", run = "arrow prev", desc = "Previous file" },
+	{ on = "n", run = "arrow next", desc = "Next file" },
+
+	# Navigation
+	{ on = "y", run = "leave", desc = "Back to the parent directory" },
+	{ on = "o", run = "enter", desc = "Enter the child directory" },
+
+	{ on = "Y", run = "back",    desc = "Back to previous directory" },
+	{ on = "O", run = "forward", desc = "Forward to next directory" },
+
+	# Seeking
+	{ on = "E", run = "seek -5", desc = "Seek up 5 units in the preview" },
+	{ on = "N", run = "seek 5",  desc = "Seek down 5 units in the preview" },
+
+	# Operation
+	# { on = "y",         run = "yank",                        desc = "Yank selected files (copy)" },
+	# { on = "Y",         run = "unyank",                      desc = "Cancel the yank status" },
+
+	{ on = "j", run = "find_arrow",              desc = "Next found" },
+	{ on = "J", run = "find_arrow --previous",   desc = "Previous found" },
+]
+
+[tasks]
+
+prepend_keymap = [
+	{ on = "e", run = "arrow prev", desc = "Previous task" },
+	{ on = "n", run = "arrow next", desc = "Next task" },
+]
+
+[spot]
+
+prepend_keymap = [
+	{ on = "e", run = "arrow prev", desc = "Previous line" },
+	{ on = "n", run = "arrow next", desc = "Next line" },
+	{ on = "y", run = "swipe prev", desc = "Swipe to previous file" },
+	{ on = "o", run = "swipe next", desc = "Swipe to next file" },
+]
+
+[pick]
+
+prepend_keymap = [
+	{ on = "e", run = "arrow prev", desc = "Previous option" },
+	{ on = "n", run = "arrow next", desc = "Next option" },
+]
+
+[input]
+
+prepend_keymap = [
+	{ on = "y",       run = "move -1", desc = "Move back a character" },
+	{ on = "o",       run = "move 1",  desc = "Move forward a character" },
+	{ on = "<Left>",  run = "move -1", desc = "Move back a character" },
+	{ on = "<Right>", run = "move 1",  desc = "Move forward a character" },
+	{ on = "<C-b>",   run = "move -1", desc = "Move back a character" },
+	{ on = "<C-f>",   run = "move 1",  desc = "Move forward a character" },
+
+	# Word-wise movement
+	# { on = "e",         run = "forward --end-of-word",       desc = "Move forward to the end of the current or next word" },
+	# { on = "E",         run = "forward --far --end-of-word", desc = "Move forward to the end of the current or next WORD" },
+
+	# Cut/Yank/Paste
+	# { on = "y", run = "yank",                                              desc = "Copy selected characters" },
+]
+
+[confirm]
+
+keymap = [
+	{ on = "e", run = "arrow prev", desc = "Previous line" },
+	{ on = "n", run = "arrow next", desc = "Next line" },
+]
+
+[cmp]
+
+keymap = [
+	{ on = "<A-e>", run = "arrow prev", desc = "Previous item" },
+	{ on = "<A-n>", run = "arrow next", desc = "Next item" },
+]
+
+[help]
+
+keymap = [
+	{ on = "e", run = "arrow prev", desc = "Previous line" },
+	{ on = "n", run = "arrow next", desc = "Next line" },
+]
